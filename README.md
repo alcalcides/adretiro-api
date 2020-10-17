@@ -1,2 +1,4 @@
 # mais-retiro-api
-This api is to support the app mais-retiro that is like a sticker album. When an user collects all stickers, he can claim a reward.
+This API RESTful is to server the app [mais-retiro](https://github.com/alcalcides/mais-retiro) that is like a sticker album. 
+
+The complete project description is explanained in [mais-retiro's README file](https://github.com/alcalcides/mais-retiro/blob/main/README.md)
