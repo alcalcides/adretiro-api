@@ -1,8 +1,8 @@
 const { Router } = require("express");
-const route = Router();
+const routes = Router();
 
-route.get("/ping", (req, res) => {
+routes.get("/ping", (req, res) => {
     res.send("Hello World");
 })
 
-module.exports = route;
+module.exports = routes;

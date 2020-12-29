@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] - 2020-12-29
+### Added
+- Separation of responsibilities: server.js is to define port and app.js defines app logic.
+
+### Fixed
+- Routes is the variable name that contains all API's resources
+
 ## [0.2.1] - 2020-12-29
 ### Added
 - Routes refactoring to be specific file
