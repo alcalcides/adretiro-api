@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2020-12-29
+### Added
+- Migrations to create table jacobs_sons
+
 ## [0.2.3] - 2020-12-29
 ### Added
 - Folder "controller" to wrap objects that accesses database tables
