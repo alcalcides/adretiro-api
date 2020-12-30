@@ -6,7 +6,7 @@ module.exports = {
 	    host: 'localhost',
 	    user: 'postgres',
 	    password: '123456',
-	    database: 'adretiro' 
+      database: 'adretiro'
     },
     pool: {
       min: 2,
@@ -14,6 +14,9 @@ module.exports = {
     },
     migrations: {
       directory: './src/database/migrations'
+    }, 
+    seeds: {
+      directory: './src/database/seeds'
     }
   },
 
@@ -28,6 +31,9 @@ module.exports = {
     },
     migrations: {
       directory: './src/database/migrations'
+    }, 
+    seeds: {
+      directory: './src/database/seeds'
     }
   }
 

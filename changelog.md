@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0]
+### Added
+- Fulfillment of table Jacobs Sons with knex's feature 'seed'
+- Documentation updating
+
+### Fixed
+- Automatically fill fields "created_at" and "updated_at" in database
 
 ## [0.3.1] - 2020-12-30
 ### Added
