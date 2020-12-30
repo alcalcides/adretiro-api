@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [0.3.1] - 2020-12-30
+### Added
+- Database conexion description to create tables
+
 ## [0.3.0] - 2020-12-29
 ### Added
 - Migrations to create table jacobs_sons
