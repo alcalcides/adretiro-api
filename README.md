@@ -55,9 +55,9 @@ To perform migration in heroku environment, you can run locally:
 $ heroku run knex migrate:latest
 ```
 
-6) See the table created in database. You can use [PgAdmin4](https://www.pgadmin.org).
+5) See the table created in database. You can use [PgAdmin4](https://www.pgadmin.org).
 
-7) Fill convenient tables with knex's feature seed. First set up the seed directory in knexfile and so: 
+6) Fill convenient tables with knex's feature seed. First set up the seed directory in knexfile and so: 
 
 ```shell
 $ knex seed:make 001_fill_jacobs_sons
@@ -68,5 +68,7 @@ Code seed script and run:
 ```shell
 $ knex seed:run 001_fill_jacobs_sons
 ```
+
+7) Set up knex queries features. Consider the file src/database/connection.js and import knex like in src/controllers/JacobsSonsControllers.js (see function read)
 
 8) Finally, enjoy!

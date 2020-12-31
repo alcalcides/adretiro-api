@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.4.0]
+## [0.5.0] - 2020-12-31
+### Added
+- Reading of tables in database
+- Documents how to perform database query with knex
+- Writes "ok" in console when the application is started
+
+## [0.4.0] - 2020-12-30
 ### Added
 - Fulfillment of table Jacobs Sons with knex's feature 'seed'
 - Documentation updating
@@ -16,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.3.1] - 2020-12-30
 ### Added
-- Database conexion description to create tables
+- Database connection description to create tables
 
 ## [0.3.0] - 2020-12-29
 ### Added
