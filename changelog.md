@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2021-01-02
+### Added
+- Table 'Stickers Status'
+
 ## [0.5.0] - 2020-12-31
 ### Added
 - Reading of tables in database
