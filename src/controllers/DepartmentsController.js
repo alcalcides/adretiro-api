@@ -6,4 +6,10 @@ module.exports = {
     const dbResponse = await dbConnect("departments").select("*");
     return response.status(200).json(dbResponse);
   },
+  async listDepartments(request, response) {
+    
+    const dbResponse = await dbConnect("departments").select("name");
+    const departments = dbResponse.map(departament => departament.name);
+    return response.status(200).json(departments);
+  },
 };
