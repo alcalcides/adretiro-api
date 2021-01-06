@@ -2,7 +2,6 @@ exports.up = (knex) => {
   return knex.schema.createTable("managers", (table) => {
     table.increments("id").primary();
     table.integer("fk_people").notNullable();
-    table.string("password_x");
 
     table.timestamp("created_at");
     table.timestamp("updated_at");

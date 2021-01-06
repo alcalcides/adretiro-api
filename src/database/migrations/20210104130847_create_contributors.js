@@ -2,7 +2,6 @@ exports.up = (knex) => {
   return knex.schema.createTable("contributors", (table) => {
     table.increments("id").primary();
     table.integer("fk_people").notNullable();
-    table.string("password_x");
     table.float("amount");
     table.float("account_balance");
 
