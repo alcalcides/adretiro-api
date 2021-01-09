@@ -1,7 +1,7 @@
 exports.up = (knex) => {
   return knex.schema.createTable("people", (table) => {
     table.increments("id").primary();
-    table.integer("fk_password");
+    table.integer("fk_password").notNullable();
     table.string("full_name").notNullable();
     table.string("username").notNullable().unique();
     table.date("birthday");

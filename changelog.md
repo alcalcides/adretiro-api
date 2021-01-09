@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0] - 2021-01-08
+### Added
+- Records contributors
+- Uses constants to map http status code
+### Fixed
+- All person must have a password
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+
+
 ## [0.9.0] - 2021-01-04
 ### Added
 - Creates table for encrypted passwords

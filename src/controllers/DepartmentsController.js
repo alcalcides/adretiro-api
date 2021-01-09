@@ -1,15 +1,17 @@
 const dbConnect = require("../database/connection");
+const { StatusCodes } = require("http-status-codes");
+const table = "departments"
 
 module.exports = {
   async read(request, response) {
     
-    const dbResponse = await dbConnect("departments").select("*");
-    return response.status(200).json(dbResponse);
+    const dbResponse = await dbConnect(table).select("*");
+    return response.status(StatusCodes.OK).json(dbResponse);
   },
   async listDepartments(request, response) {
     
-    const dbResponse = await dbConnect("departments").select("name");
+    const dbResponse = await dbConnect(table).select("name");
     const departments = dbResponse.map(departament => departament.name);
-    return response.status(200).json(departments);
+    return response.status(StatusCodes.OK).json(departments);
   },
 };
