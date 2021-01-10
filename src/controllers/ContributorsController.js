@@ -1,18 +1,22 @@
-const dbConnect = require("../database/connection");
 const { StatusCodes } = require("http-status-codes");
-const table = "contributors";
-const bcrypt = require("bcrypt");
+const ErrorMessage = require("./utils/errorMessages");
 const { getDBTimes } = require("./utils/getDBTimes");
-const { ErrorMessages } = require("./utils/errosMessages");
 const { readTable } = require("../database/interface/read");
-const numberOfCycles = parseInt(process.env.PASSWORD_ENCRYPTION_ROUNDS, 10);
+const { validatePassword, generatePassword } = require("./PasswordsController");
+const { createRegister } = require("../database/interface/create");
+const { createPeople } = require("./PeopleController");
+const table = "contributors";
+const amountInitial = 0;
+const accountBalanceInitial = 0;
 
 module.exports = {
   async read(req, res) {
     const dbResponse = await readTable(table);
     return res.status(StatusCodes.OK).json(dbResponse);
   },
-
+  async createContributor(data) {
+    return createRegister(table, data);
+  },
   async create(req, res) {
     const {
       fullName,
@@ -29,93 +33,47 @@ module.exports = {
     if (!hasAcceptedTermsOfUse) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ success: false, message: ErrorMessages.termsOfUse });
+        .json({ success: false, message: ErrorMessage.termsOfUse });
     }
 
     const isPasswordOK = validatePassword(password);
-
     if (isPasswordOK !== true) {
       return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ success: false, message: isPasswordOK });
     }
 
-    bcrypt.genSalt(numberOfCycles, async (err, salt) => {
-      if (err) {
-        return res
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json({ success: false, message: err });
-      }
+    const { created_at, updated_at } = getDBTimes();
 
-      bcrypt.hash(password, salt, async (err, hash) => {
-        if (err) {
-          return res
-            .status(StatusCodes.INTERNAL_SERVER_ERROR)
-            .json({ success: false, message: err });
-        }
+    const dbResponsePassword = await generatePassword(
+      password,
+      created_at,
+      updated_at
+    );
 
-        const { created_at, updated_at } = getDBTimes();
+    const dataForPeople = {
+      fk_password: dbResponsePassword.id,
+      full_name: fullName,
+      username,
+      birthday,
+      mothers_full_name: mothersFullName,
+      email,
+      whatsapp: phoneNumber,
+      created_at,
+      updated_at,
+    };
+    const dbResponsePeople = await createPeople(dataForPeople);
 
-        const dataForPassword = {
-          hash,
-          salt,
-          number_of_cycles: numberOfCycles,
-          created_at,
-          updated_at,
-        };
+    const dataForContributor = {
+      fk_people: dbResponsePeople.id,
+      amount: amountInitial,
+      account_balance: accountBalanceInitial,
+      created_at,
+      updated_at,
+    };
 
-        const [passwordID] = await dbConnect("passwords")
-          .insert(dataForPassword)
-          .returning("id");
+    const { id } = await createRegister(table, dataForContributor)
 
-        let dataForPeople = {
-          fk_password: passwordID,
-          full_name: fullName,
-          username,
-          birthday,
-          mothers_full_name: mothersFullName,
-          email,
-          whatsapp: phoneNumber,
-          created_at,
-          updated_at,
-        };
-
-        const peopleID = await dbConnect("people")
-          .insert(dataForPeople)
-          .returning("id");
-
-        const amount = 0;
-        const account_balance = 0;
-        const fk_people = peopleID[0];
-
-        const contributorsData = {
-          fk_people,
-          amount,
-          account_balance,
-          created_at,
-          updated_at,
-        };
-
-        const [dbResponseContributors] = await dbConnect(table)
-          .insert(contributorsData)
-          .returning("*");
-        // refatorar e processar departamentos
-
-        return res.status(StatusCodes.OK).json(dbResponseContributors);
-      });
-    });
+    return res.status(StatusCodes.OK).json({ id });
   },
 };
-
-function validatePassword(password) {
-  if (!password) {
-    return { error: ErrorMessages.lackOfPassword };
-  }
-
-  length = String(password).length;
-  if (length < 8 || length > 25) {
-    return { error: ErrorMessages.passwordSize };
-  }
-
-  return true;
-}

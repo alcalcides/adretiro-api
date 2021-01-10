@@ -2,7 +2,7 @@ const { Router } = require("express");
 const ContributorsController = require("./controllers/ContributorsController");
 const DepartmentsController = require("./controllers/DepartmentsController");
 const JacobsSonsController = require("./controllers/JacobsSonsController");
-const PasswordController = require("./controllers/PasswordController");
+const PasswordsController = require("./controllers/PasswordsController");
 const PeopleController = require("./controllers/PeopleController");
 const Ping = require("./controllers/Ping");
 const StickersStatusController = require("./controllers/StickersStatusController");
@@ -19,9 +19,9 @@ routes.get("/departments", DepartmentsController.read);
 routes.get("/list-departments", DepartmentsController.listDepartments);
 
 routes.get("/people", PeopleController.read);
-routes.post("/people", PeopleController.create);
+routes.get("/people/:id", PeopleController.findByID);
 
-routes.get("/passwords/:id", PasswordController.read);
+routes.get("/passwords/:id", PasswordsController.read);
 
 routes.get("/contributors", ContributorsController.read);
 routes.post("/contributors", ContributorsController.create);
