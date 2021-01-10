@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.0] - 2021-01-09
+### Added
+- Implements interface to database operations
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+
+
 ## [0.10.0] - 2021-01-08
 ### Added
 - Records contributors

@@ -4,12 +4,12 @@ const table = "contributors";
 const bcrypt = require("bcrypt");
 const { getDBTimes } = require("./utils/getDBTimes");
 const { ErrorMessages } = require("./utils/errosMessages");
+const { readTable } = require("../database/interface/read");
 const numberOfCycles = parseInt(process.env.PASSWORD_ENCRYPTION_ROUNDS, 10);
 
 module.exports = {
   async read(req, res) {
-    console.log("oi");
-    const dbResponse = await dbConnect(table).select("*");
+    const dbResponse = await readTable(table);
     return res.status(StatusCodes.OK).json(dbResponse);
   },
 
