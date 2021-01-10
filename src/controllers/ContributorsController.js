@@ -5,6 +5,7 @@ const { readTable } = require("../database/interface/read");
 const { validatePassword, generatePassword } = require("./PasswordsController");
 const { createRegister } = require("../database/interface/create");
 const { createPeople } = require("./PeopleController");
+const { enrollInDepartments } = require("./EnrollmentsController");
 const table = "contributors";
 const amountInitial = 0;
 const accountBalanceInitial = 0;
@@ -13,9 +14,6 @@ module.exports = {
   async read(req, res) {
     const dbResponse = await readTable(table);
     return res.status(StatusCodes.OK).json(dbResponse);
-  },
-  async createContributor(data) {
-    return createRegister(table, data);
   },
   async create(req, res) {
     const {
@@ -30,6 +28,7 @@ module.exports = {
       hasAcceptedTermsOfUse,
     } = req.body;
 
+    // minimum data validation
     if (!hasAcceptedTermsOfUse) {
       return res
         .status(StatusCodes.BAD_REQUEST)
@@ -43,6 +42,7 @@ module.exports = {
         .json({ success: false, message: isPasswordOK });
     }
 
+    // user registration
     const { created_at, updated_at } = getDBTimes();
 
     const dbResponsePassword = await generatePassword(
@@ -64,6 +64,12 @@ module.exports = {
     };
     const dbResponsePeople = await createPeople(dataForPeople);
 
+    await enrollInDepartments(
+      dbResponsePeople.id,
+      enrolledDepartments,
+      created_at
+    );
+
     const dataForContributor = {
       fk_people: dbResponsePeople.id,
       amount: amountInitial,
@@ -72,7 +78,7 @@ module.exports = {
       updated_at,
     };
 
-    const { id } = await createRegister(table, dataForContributor)
+    const { id } = await createRegister(table, dataForContributor);
 
     return res.status(StatusCodes.OK).json({ id });
   },
