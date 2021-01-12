@@ -32,27 +32,27 @@ This projetct used [Postgres](https://www.postgresql.org/) and [knex.js](https:/
 
 ```shell
 $ npm install knex -g
-$ npm install pg
-$ knex init
+~ npm install pg
+~ knex init
 ```
 
 3) Set up knexfile.js ([see the result](https://github.com/alcalcides/adretiro-api/blob/master/knexfile.js)).
 4) Implement migration to create table "Jacob's Sons":
 
 ```shell
-$ knex migrate:make jacobs_sons
+~ knex migrate:make jacobs_sons
 ```
 
 Code migration script and run:
 
 ```shell
-$ knex migrate:latest
+~ knex migrate:latest
 ```
 
 To perform migration in heroku environment, you can run locally:
 
 ```shell
-$ heroku run knex migrate:latest
+~ heroku run knex migrate:latest
 ```
 
 5) See the table created in database. You can use [PgAdmin4](https://www.pgadmin.org).
@@ -60,15 +60,22 @@ $ heroku run knex migrate:latest
 6) Fill convenient tables with knex's feature seed. First set up the seed directory in knexfile and so: 
 
 ```shell
-$ knex seed:make 001_fill_jacobs_sons
+~ knex seed:make 001_fill_jacobs_sons
 ```
 
 Code seed script and run:
 
 ```shell
-$ knex seed:run 001_fill_jacobs_sons
+~ knex seed:run 001_fill_jacobs_sons
 ```
 
 7) Set up knex queries features. Consider the file src/database/connection.js and import knex like in src/controllers/JacobsSonsControllers.js (see function read)
 
-8) Finally, enjoy!
+8) Set up environments variables according with file .env.example. If Heroku, use:
+
+```shell
+~ heroku config:set PASSWORD_ENCRYPTION_ROUNDS=XXXX
+~ heroku config:set JWT_PRIVATE_KEY=YYYY
+```
+
+9) Finally, enjoy!

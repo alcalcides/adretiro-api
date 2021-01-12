@@ -1,6 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const ErrorMessage = require("./utils/errorMessages");
 const { getDBTimes } = require("./utils/getDBTimes");
+const { generateJWT } = require("./utils/generateJWT");
 const { readTable } = require("../database/interface/read");
 const { validatePassword, generatePassword } = require("./PasswordsController");
 const { createRegister } = require("../database/interface/create");
@@ -80,6 +81,8 @@ module.exports = {
 
     const { id } = await createRegister(table, dataForContributor);
 
-    return res.status(StatusCodes.OK).json({ id });
+    const token = await generateJWT({id, "sub": "contributor"})
+
+    return res.status(StatusCodes.OK).json({ token });
   },
 };
