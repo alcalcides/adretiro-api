@@ -81,7 +81,7 @@ module.exports = {
 
     const { id } = await createRegister(table, dataForContributor);
 
-    const token = await generateJWT({id, "sub": "contributor"})
+    const token = await generateJWT({ id, sub: "contributor" });
 
     return res.status(StatusCodes.OK).json({ token });
   },

@@ -1,6 +1,6 @@
 {
   "name": "adretiro-api",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "description": "This API RESTful is to server the app adretiro",
   "main": "index.js",
   "scripts": {

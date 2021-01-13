@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.0] - 2021-01-12
+### Added
+- Authenticates contributors and managers
+- Lists all managers
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+
 ## [0.13.0] - 2021-01-11
 ### Added
 - Authorizes users with JWT

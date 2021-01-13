@@ -37,5 +37,9 @@ module.exports = {
     }
   
     return true;
-  }
+  },
+  async findByID(id) {
+    const dbResponse = await findRegister(table, "id", id)
+    return dbResponse;    
+  },
 };

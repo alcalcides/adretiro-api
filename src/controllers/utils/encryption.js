@@ -7,4 +7,7 @@ module.exports = {
   generateHash(data, salt) {
     return bcrypt.hash(data, salt).then((hash) => hash);
   },
+  matchHash(password, hash){
+    return bcrypt.compare(password, hash).then((value) => value);
+  }
 };
