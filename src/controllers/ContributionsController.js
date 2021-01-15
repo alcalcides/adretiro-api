@@ -7,4 +7,8 @@ module.exports = {
     const dbResponse = await readTable(table);
     return res.status(StatusCodes.OK).json(dbResponse);
   },
+  async create(req, res) {
+    
+    return res.status(StatusCodes.OK).send("create contribution");
+  }
 };

@@ -24,7 +24,7 @@ module.exports = {
         .status(StatusCodes.BAD_REQUEST)
         .json({ success: false, message: isUsernameOK });
     }
-    // retrieve people data
+    // authenticate
     const peopleData = await PeopleController.findByUsername(username)
       .then(({ fk_password, id }) => ({ fk_password, id }))
       .catch((reason) => ({ reason }));

@@ -6,12 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.15.0] - 2021-01-14
+### Added
+- Protects authenticated routes
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Resources insecures: table passwords
+
 ## [0.14.0] - 2021-01-12
 ### Added
 - Authenticates contributors and managers
 - Lists all managers
 ### Deprecated
 - Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Resources insecures: table passwords
 
 ## [0.13.0] - 2021-01-11
 ### Added

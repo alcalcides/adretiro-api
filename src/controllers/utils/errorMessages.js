@@ -6,5 +6,8 @@ const ErrorMessage = {
   lackOfUsername: "It misses username",
   passwordWrong: "Password doesn't match",
   userWrong: "Username incorrect or not exists",
+  noToken: "No token provided",
+  tokenError: "Token Error",
+  credentialError: "Credential error"
 };
 module.exports = ErrorMessage;
