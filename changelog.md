@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.16.0] - 2021-01-15
+### Added
+- Records the contributions in the database
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Resources insecures: table passwords
+
 ## [0.15.0] - 2021-01-14
 ### Added
 - Protects authenticated routes
