@@ -10,6 +10,7 @@ const authManager = require("./controllers/middleware/authManager");
 const PasswordsController = require("./controllers/PasswordsController");
 const PeopleController = require("./controllers/PeopleController");
 const Ping = require("./controllers/Ping");
+const RewardRequestsController = require("./controllers/RewardRequestsController");
 const StickersStatusController = require("./controllers/StickersStatusController");
 
 const routes = Router();
@@ -38,5 +39,8 @@ routes.post("/contributions", authManager, ContributionsController.create);
 routes.post("/authenticate", AuthenticationController.authenticate);
 
 routes.get("/managers", authManager, ManagersController.read);
+
+routes.get("/reward-requests", authManager, RewardRequestsController.read);
+routes.post("/reward-requests", auth, RewardRequestsController.create);
 
 module.exports = routes;

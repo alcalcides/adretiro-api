@@ -2,7 +2,7 @@ const { StatusCodes } = require("http-status-codes");
 const ErrorMessage = require("./utils/errorMessages");
 const { getDBTimes } = require("./utils/getDBTimes");
 const { generateJWT } = require("./utils/generateJWT");
-const { readTable } = require("../database/interface/read");
+const { readTable, findRegister } = require("../database/interface/read");
 const { validatePassword, generatePassword } = require("./PasswordsController");
 const { createRegister } = require("../database/interface/create");
 const { createPeople } = require("./PeopleController");
@@ -84,5 +84,15 @@ module.exports = {
     const token = await generateJWT({ id, sub: "contributor" });
 
     return res.status(StatusCodes.OK).json({ token });
+  },
+  async getAccountBalance(id) {
+    return findRegister(table, "id", id)
+      .then((value) => {
+        const { account_balance } = value;
+        return account_balance;
+      })
+      .catch((err) => {
+        return { success: false, message: ErrorMessage.userWrong, err };
+      });
   },
 };
