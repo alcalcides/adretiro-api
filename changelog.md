@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.17.0] - 2021-01-16
+### Added
+- Can fill the sheet 'stickers'
+### Fixed
+- Removes constraint of column fk_contributor in the sheet 'stickers'
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Resources insecures: table passwords
+
 ## [0.16.0] - 2021-01-15
 ### Added
 - Records the contributions in the database

@@ -1,8 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const { createRegister } = require("../database/interface/create");
 const { readTable } = require("../database/interface/read");
-const { getAccountBalance } = require("./ContributorsController");
-const ErrorMessage = require("./utils/errorMessages");
 const { getDBTimes } = require("./utils/getDBTimes");
 const table = "reward_requests";
 
@@ -17,7 +15,6 @@ module.exports = {
     
     /*
     
-    PROCESSAMENTO DE DADOS
     TRANSACTIONS
 
     */
