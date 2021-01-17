@@ -63,10 +63,16 @@ To perform migration in heroku environment, you can run locally:
 ~ knex seed:make 001_fill_jacobs_sons
 ```
 
-Code seed script and run:
+Code the seed script and run:
 
 ```shell
 ~ knex seed:run 001_fill_jacobs_sons
+```
+
+If you want run all seeds, use:
+
+```shell
+~ knex seed:run
 ```
 
 7) Set up knex queries features. Consider the file src/database/connection.js and import knex like in src/controllers/JacobsSonsControllers.js (see function read)
@@ -78,4 +84,11 @@ Code seed script and run:
 ~ heroku config:set JWT_PRIVATE_KEY=YYYY
 ```
 
-9) Finally, enjoy!
+9) Build the main table (stickers):
+
+```shel 
+~ npm run fill-table-stickers
+```
+This table is to be build only once in the program lifecycle. Be careful, keep a backup and avoid problems....
+
+10) Finally, enjoy!
