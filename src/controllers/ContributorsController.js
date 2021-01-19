@@ -63,7 +63,20 @@ module.exports = {
       created_at,
       updated_at,
     };
-    const dbResponsePeople = await createPeople(dataForPeople);
+
+    var dbResponsePeople;
+
+    try {
+      dbResponsePeople = await createPeople(dataForPeople);
+    } catch (error) {
+      return res
+        .status(StatusCodes.CONFLICT)
+        .json({
+          success: false,
+          message: error,
+          tip: ErrorMessage.alreadyEnrolled
+        });
+    }
 
     await enrollInDepartments(
       dbResponsePeople.id,

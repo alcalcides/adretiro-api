@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.17.3] - 2021-01-16
+### Fixed
+- Returns writing errors in the table people
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Resources insecures: table passwords
+
 ## [0.17.2] - 2021-01-16
 ### Fixed
 - Enable all CORS requests
