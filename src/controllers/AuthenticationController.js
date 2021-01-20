@@ -46,7 +46,11 @@ module.exports = {
 
     const isManager = await ManagersController.findByFKPeople(peopleData.id);
     const level = isManager ? { sub: "manager" } : { sub: "contributor" };
-    const token = await generateJWT({ id: peopleData.id, ...level });
+    const token = await generateJWT({
+      id: peopleData.id,
+      username,
+      ...level,
+    });
 
     return res.status(StatusCodes.OK).json({ token });
   },
