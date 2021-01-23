@@ -6,8 +6,8 @@ exports.up = (knex) => {
     table.string("username").notNullable().unique();
     table.date("birthday");
     table.string("mothers_full_name");
-    table.string("email").unique().nullable();
-    table.string("whatsapp").unique().nullable();
+    table.string("email").unique();
+    table.string("whatsapp").unique();
 
     table.timestamp("created_at");
     table.timestamp("updated_at");

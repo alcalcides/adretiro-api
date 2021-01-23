@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.17.5] - 2021-01-23
+### Fixed
+- Allows multiple values 'null' in columns with the constraint 'unique'
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Resources insecures: table passwords
+
 ## [0.17.4] - 2021-01-19
 ### Changed
 - Adds username to JWT payload

@@ -4,7 +4,7 @@ exports.up = (knex) => {
     table.integer("fk_contributor");
     table.integer("fk_jacobs_son").notNullable();
     table.integer("fk_sticker_status").notNullable();
-    table.string("label");
+    table.string("label").notNullable();
 
     table.timestamp("created_at");
     table.timestamp("updated_at");

@@ -3,7 +3,7 @@ exports.up = (knex) => {
     table.increments("id").primary();
     table.integer("fk_contributor").notNullable();
     table.integer("fk_manager").notNullable();
-    table.float("value");
+    table.float("value").notNullable();
 
     table.timestamp("created_at");
     table.timestamp("updated_at");
