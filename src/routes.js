@@ -3,6 +3,7 @@ const AuthenticationController = require("./controllers/AuthenticationController
 const ContributionsController = require("./controllers/ContributionsController");
 const ContributorsController = require("./controllers/ContributorsController");
 const DepartmentsController = require("./controllers/DepartmentsController");
+const EnrollmentsController = require("./controllers/EnrollmentsController");
 const JacobsSonsController = require("./controllers/JacobsSonsController");
 const ManagersController = require("./controllers/ManagersController");
 const auth = require("./controllers/middleware/auth");
@@ -23,6 +24,7 @@ routes.get("/stickers-status", StickersStatusController.read);
 
 routes.get("/departments", DepartmentsController.read);
 routes.get("/list-departments", DepartmentsController.listDepartments);
+routes.get("/list-departments/:id", auth, EnrollmentsController.enrollmentsOfPerson);
 
 routes.get("/people", authManager, PeopleController.read);
 routes.get("/people/:id", auth, PeopleController.findByID);

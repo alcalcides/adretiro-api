@@ -1,5 +1,9 @@
 const { StatusCodes } = require("http-status-codes");
-const { readTable, listColumn } = require("../database/interface/read");
+const {
+  readTable,
+  listColumn,
+  findRegister,
+} = require("../database/interface/read");
 const table = "departments";
 
 module.exports = {
@@ -11,5 +15,9 @@ module.exports = {
     const dbResponse = await listColumn("name", table);
     const departments = dbResponse.map((departament) => departament.name);
     return res.status(StatusCodes.OK).json(departments);
-  }
+  },
+  async getDepartment(id) {
+    const dbResponse = await findRegister(table, "id", id);
+    return dbResponse;
+  },
 };
