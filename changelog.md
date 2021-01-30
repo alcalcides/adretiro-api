@@ -6,7 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [Unreleased]
+## [0.19.0] - 2021-01-29
+### Added
+- Updates person data
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Resources insecures: table passwords
 
 ## [0.18.0] - 2021-01-23
 ### Added

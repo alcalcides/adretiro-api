@@ -16,9 +16,4 @@ function generateJWT(payload, privateKey = process.env.JWT_PRIVATE_KEY, timeoutI
   });
 }
 
-function generateJWTAsync(payload, privateKey = process.env.JWT_PRIVATE_KEY) {
-  return jwt.sign(payload, privateKey);
-}
-
 exports.generateJWT = generateJWT;
-exports.generateJWTAsync = generateJWTAsync;

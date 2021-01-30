@@ -30,6 +30,7 @@ module.exports = (req, res, next) => {
     .then((decoded) => {
       req.id = decoded.id;
       req.sub = decoded.sub;
+      req.username = decoded.username;
       return next();
     })
     .catch((err) => {

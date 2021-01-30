@@ -2,6 +2,7 @@ const { StatusCodes } = require("http-status-codes");
 const { readTable, findRegister } = require("../database/interface/read");
 const { createRegister } = require("../database/interface/create");
 const ErrorMessage = require("./utils/errorMessages");
+const { updateRegisterWithID } = require("../database/interface/update");
 const table = "people";
 
 module.exports = {
@@ -31,5 +32,13 @@ module.exports = {
     }
 
     return true;
+  },
+  async updatePeople(data, id) {
+    try {
+      const response = await updateRegisterWithID(table, data, id);
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
   },
 };

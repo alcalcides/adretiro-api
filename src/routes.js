@@ -33,6 +33,7 @@ routes.get("/passwords/:id", PasswordsController.read);
 
 routes.get("/contributors", authManager, ContributorsController.read);
 routes.post("/contributors", ContributorsController.create);
+routes.put("/contributors", auth, ContributorsController.update);
 
 
 routes.get("/contributions", authManager, ContributionsController.read);

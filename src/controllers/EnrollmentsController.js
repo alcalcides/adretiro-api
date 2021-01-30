@@ -1,5 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const { createRegister } = require("../database/interface/create");
+const { deleteRegister } = require("../database/interface/delete");
 const {
   findRegister,
   findRegisters,
@@ -38,6 +39,9 @@ module.exports = {
         return createRegister(table, data);
       }
     });
+  },
+  async cancelEnrollments(peopleID){
+    return await deleteRegister(table, 'fk_people', peopleID);
   },
   async enrollmentsOfPerson(req, res) {
     const { id } = req.params;

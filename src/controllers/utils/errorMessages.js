@@ -9,6 +9,7 @@ const ErrorMessage = {
   userNotFound: "User not found",
   noToken: "No token provided",
   tokenError: "Token Error",
-  credentialError: "Credential error"
+  credentialError: "Credential error",
+  dataOutOfRange: "This date is not razonable"
 };
 module.exports = ErrorMessage;
