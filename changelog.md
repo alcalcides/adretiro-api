@@ -6,7 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.19.0] - 2021-01-29
+## [0.19.1] - 2021-01-30
+### Added
+- Prints the time first of all, when starting
+
+### Fixed
+- Fixes password sanitization error response
+
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Resources insecures: table passwords
+
+## [0.19.0] - 2021-01-30
 ### Added
 - Updates person data
 ### Deprecated

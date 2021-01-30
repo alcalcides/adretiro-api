@@ -135,7 +135,7 @@ module.exports = {
     if (isPasswordOK !== true) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ success: false, message: isPasswordOK });
+        .json({ success: false, message: isPasswordOK.error });
     }
 
     // verificar senha correta
