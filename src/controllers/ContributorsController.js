@@ -45,7 +45,7 @@ module.exports = {
     if (isPasswordOK !== true) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ success: false, message: isPasswordOK });
+        .json({ success: false, message: isPasswordOK.error });
     }
 
     // user registration
@@ -76,8 +76,8 @@ module.exports = {
     } catch (error) {
       return res.status(StatusCodes.CONFLICT).json({
         success: false,
-        message: error,
-        tip: ErrorMessage.alreadyEnrolled,
+        message: ErrorMessage.alreadyEnrolled,
+        log: error 
       });
     }
 
@@ -95,9 +95,9 @@ module.exports = {
       updated_at,
     };
 
-    const { id } = await createRegister(table, dataForContributor);
-
-    const token = await generateJWT({ id, username, sub: "contributor" });
+    await createRegister(table, dataForContributor);
+    
+    const token = await generateJWT({ id: dbResponsePeople.id, username, sub: "contributor" });
 
     return res.status(StatusCodes.OK).json({ token });
   },
