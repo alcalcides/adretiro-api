@@ -178,10 +178,10 @@ module.exports = {
     }
 
     // atualizar enrollments
-    const enrollmentsRespond = await EnrollmentsController.cancelEnrollments(
-      req.id
-    );
-    await enrollInDepartments(req.id, enrolledDepartments, created_at);
+    await EnrollmentsController.cancelEnrollments(req.id);
+    if(enrolledDepartments !== undefined){
+      await enrollInDepartments(req.id, enrolledDepartments, created_at);
+    }
 
     const isManager = await ManagersController.findByFKPeople(peopleData.id);
     const level = isManager ? { sub: "manager" } : { sub: "contributor" };

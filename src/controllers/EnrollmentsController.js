@@ -57,8 +57,8 @@ module.exports = {
     const enrollments = await findRegisters(table, "fk_people", id);
     if (enrollments.length === 0) {
       return res
-        .status(StatusCodes.NOT_FOUND)
-        .send({ success: false, message: ErrorMessage.userNotFound });
+        .status(StatusCodes.NO_CONTENT)
+        .send({ success: true, message: ErrorMessage.lackOfData });
     }
 
     const ids = enrollments.map((v) => v.fk_department);

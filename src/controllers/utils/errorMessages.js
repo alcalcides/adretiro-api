@@ -10,6 +10,7 @@ const ErrorMessage = {
   noToken: "No token provided",
   tokenError: "Token Error",
   credentialError: "Credential error",
-  dataOutOfRange: "This date is not razonable"
+  dataOutOfRange: "This date is not razonable",
+  lackOfData: "Empty"
 };
 module.exports = ErrorMessage;
