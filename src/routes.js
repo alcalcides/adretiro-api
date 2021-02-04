@@ -8,7 +8,6 @@ const JacobsSonsController = require("./controllers/JacobsSonsController");
 const ManagersController = require("./controllers/ManagersController");
 const auth = require("./controllers/middleware/auth");
 const authManager = require("./controllers/middleware/authManager");
-const PasswordsController = require("./controllers/PasswordsController");
 const PeopleController = require("./controllers/PeopleController");
 const Ping = require("./controllers/Ping");
 const RewardRequestsController = require("./controllers/RewardRequestsController");
@@ -28,8 +27,6 @@ routes.get("/list-departments/:id", auth, EnrollmentsController.enrollmentsOfPer
 
 routes.get("/people", authManager, PeopleController.read);
 routes.get("/people/:id", auth, PeopleController.findByID);
-
-routes.get("/passwords/:id", PasswordsController.read);
 
 routes.get("/contributors", authManager, ContributorsController.read);
 routes.post("/contributors", ContributorsController.create);

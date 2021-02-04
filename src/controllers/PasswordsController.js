@@ -1,5 +1,5 @@
-const { StatusCodes } = require("http-status-codes");
 const { createRegister } = require("../database/interface/create");
+const { deleteRegister } = require("../database/interface/delete");
 const { findRegister } = require("../database/interface/read");
 const { generateSalt, generateHash } = require("./utils/encryption");
 const ErrorMessage = require("./utils/errorMessages");
@@ -7,11 +7,6 @@ const numberOfCycles = parseInt(process.env.PASSWORD_ENCRYPTION_ROUNDS, 10);
 const table = "passwords";
 
 module.exports = {
-  async read(req, res) {
-    const { id } = req.params;
-    const dbResponse = await findRegister(table, "id", id);
-    return res.status(StatusCodes.OK).json(dbResponse);
-  },
   async generatePassword(password, created_at, updated_at) {
     const salt = await generateSalt(numberOfCycles);
     const hash = await generateHash(password, salt);
@@ -42,4 +37,7 @@ module.exports = {
     const dbResponse = await findRegister(table, "id", id)
     return dbResponse;    
   },
+  async deletePassword(passwordID){
+    return await deleteRegister(table, 'id', passwordID);
+  }
 };

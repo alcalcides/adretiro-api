@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.19.3] - 2021-01-30
+### Fixed
+- Deletes register of table 'passwords' when contributor creation faults
+- Deletes resource 'read' in table passwords
+
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+
 ## [0.19.2] - 2021-01-30
 ### Fixed
 - Establishes a pattern to payload error responses

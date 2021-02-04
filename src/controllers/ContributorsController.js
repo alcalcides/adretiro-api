@@ -3,7 +3,7 @@ const ErrorMessage = require("./utils/errorMessages");
 const { getDBTimes } = require("./utils/getDBTimes");
 const { generateJWT } = require("./utils/generateJWT");
 const { readTable, findRegister } = require("../database/interface/read");
-const { validatePassword, generatePassword } = require("./PasswordsController");
+const { validatePassword, generatePassword, deletePassword } = require("./PasswordsController");
 const { createRegister } = require("../database/interface/create");
 const { createPeople } = require("./PeopleController");
 const { enrollInDepartments } = require("./EnrollmentsController");
@@ -74,6 +74,7 @@ module.exports = {
     try {
       dbResponsePeople = await createPeople(dataForPeople);
     } catch (error) {
+      deletePassword(dbResponsePassword.id);
       return res.status(StatusCodes.CONFLICT).json({
         success: false,
         message: ErrorMessage.alreadyEnrolled,
