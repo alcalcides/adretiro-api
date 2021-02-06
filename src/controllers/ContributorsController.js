@@ -2,8 +2,12 @@ const { StatusCodes } = require("http-status-codes");
 const ErrorMessage = require("./utils/errorMessages");
 const { getDBTimes } = require("./utils/getDBTimes");
 const { generateJWT } = require("./utils/generateJWT");
-const { readTable, findRegister } = require("../database/interface/read");
-const { validatePassword, generatePassword, deletePassword } = require("./PasswordsController");
+const { listColumn, findRegister } = require("../database/interface/read");
+const {
+  validatePassword,
+  generatePassword,
+  deletePassword,
+} = require("./PasswordsController");
 const { createRegister } = require("../database/interface/create");
 const { createPeople } = require("./PeopleController");
 const { enrollInDepartments } = require("./EnrollmentsController");
@@ -17,9 +21,21 @@ const amountInitial = 0;
 const accountBalanceInitial = 0;
 
 module.exports = {
-  async read(req, res) {
-    const dbResponse = await readTable(table);
-    return res.status(StatusCodes.OK).json(dbResponse);
+  async list(req, res) {
+    const fkPeopleList = await listColumn("fk_people", table);
+
+    const data = await Promise.all(
+      fkPeopleList.map(async ({fk_people: peopleID}) => {
+        const peopleData = await findRegister("people", "id", peopleID);
+        const data = {
+          fullName: peopleData.full_name,
+          username: peopleData.username,
+        };
+        return data;
+      })
+    );
+
+    return res.status(StatusCodes.OK).json(data);
   },
   async create(req, res) {
     const {
@@ -78,7 +94,7 @@ module.exports = {
       return res.status(StatusCodes.CONFLICT).json({
         success: false,
         message: ErrorMessage.alreadyEnrolled,
-        log: error 
+        log: error,
       });
     }
 
@@ -97,8 +113,12 @@ module.exports = {
     };
 
     await createRegister(table, dataForContributor);
-    
-    const token = await generateJWT({ id: dbResponsePeople.id, username, sub: "contributor" });
+
+    const token = await generateJWT({
+      id: dbResponsePeople.id,
+      username,
+      sub: "contributor",
+    });
 
     return res.status(StatusCodes.OK).json({ token });
   },
@@ -179,7 +199,7 @@ module.exports = {
 
     // atualizar enrollments
     await EnrollmentsController.cancelEnrollments(req.id);
-    if(enrolledDepartments !== undefined){
+    if (enrolledDepartments !== undefined) {
       await enrollInDepartments(req.id, enrolledDepartments, created_at);
     }
 
@@ -193,8 +213,8 @@ module.exports = {
 
     return res.status(StatusCodes.OK).json({ token });
   },
-  async getAccountBalance(id) {
-    return findRegister(table, "id", id)
+  async getAccountBalance(contributorID) {
+    return findRegister(table, "id", contributorID)
       .then((value) => {
         const { account_balance } = value;
         return account_balance;
