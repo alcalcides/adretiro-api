@@ -11,7 +11,7 @@ module.exports = {
     const dbResponse = await readTable(table);
     return res.status(StatusCodes.OK).json(dbResponse);
   },
-  async registry(req, res) {
+  async create(req, res) {
     const { username, value } = req.body;
     const { created_at, updated_at } = getDBTimes();
 

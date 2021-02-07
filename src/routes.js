@@ -34,7 +34,7 @@ routes.put("/contributors", auth, ContributorsController.update);
 
 
 routes.get("/contributions", authManager, ContributionsController.read);
-routes.post("/contributions", authManager, ContributionsController.registry);
+routes.post("/contributions", authManager, ContributionsController.create);
 
 routes.post("/authenticate", AuthenticationController.authenticate);
 
