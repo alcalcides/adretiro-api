@@ -17,11 +17,7 @@ module.exports = {
     return res.status(StatusCodes.OK).json(dbResponse);
   },
   async findByUsername(username) {
-    return new Promise((resolve, reject) => {
-      findRegister(table, "username", username)
-        .then((value) => resolve(value))
-        .catch((reason) => reject(reason));
-    });
+    return await findRegister(table, "username", username);
   },
   async createPeople(data) {
     return createRegister(table, data);

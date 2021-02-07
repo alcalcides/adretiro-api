@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [0.21.0] - 2021-02-06
+### Added
+- Registries the contributions
+
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+
 ## [0.20.0] - 2021-02-06
 ### Added
 - Lists contributors' full Name and username
