@@ -1,6 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const { createRegister } = require("../database/interface/create");
 const { readTable } = require("../database/interface/read");
+const ContributorsController = require("./ContributorsController");
 const PeopleController = require("./PeopleController");
 const ErrorMessage = require("./utils/errorMessages");
 const { getDBTimes } = require("./utils/getDBTimes");
@@ -16,26 +17,44 @@ module.exports = {
     const { created_at, updated_at } = getDBTimes();
 
     const peopleData = await PeopleController.findByUsername(username);
-    if(peopleData.id === req.id){
-      const feedback = { success: false, message: ErrorMessage.credentialError };
+    if (peopleData.id === req.id) {
+      const feedback = {
+        success: false,
+        message: ErrorMessage.credentialError,
+      };
       return res.status(StatusCodes.BAD_REQUEST).json(feedback);
     }
 
-    const data = {
-      fk_contributor: peopleData.id,
+    const peopleID = peopleData.id;
+    const contributorData = await ContributorsController.findByPeopleID(
+      peopleID
+    );
+
+    const contributionData = {
+      fk_contributor: contributorData.id,
       fk_manager: req.id,
       value,
       created_at,
       updated_at,
     };
-    
-    createRegister(table, data)
-      .then((dbResponse) => {
-        return res.status(StatusCodes.CREATED).json(dbResponse);
-      })
-      .catch(() => {
-        const feedback = { success: false, message: ErrorMessage.userWrong };
-        return res.status(StatusCodes.BAD_REQUEST).json(feedback);
-      });
+
+    const contributionResponse = await createRegister(table, contributionData);
+    if (contributionResponse.success === false) {
+      const feedback = { success: false, message: ErrorMessage.userWrong };
+      return res.status(StatusCodes.BAD_REQUEST).json(feedback);
+    }
+
+    const contributorNewData = {
+      amount: contributorData.amount + value,
+      account_balance: contributorData.account_balance + value,
+      updated_at: updated_at,
+    };
+
+    await ContributorsController.updateContributor(
+      contributorNewData,
+      contributorData.id
+    );
+
+    return res.status(StatusCodes.CREATED).json(contributionResponse);
   },
 };

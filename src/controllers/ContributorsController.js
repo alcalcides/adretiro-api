@@ -2,7 +2,7 @@ const { StatusCodes } = require("http-status-codes");
 const ErrorMessage = require("./utils/errorMessages");
 const { getDBTimes } = require("./utils/getDBTimes");
 const { generateJWT } = require("./utils/generateJWT");
-const { listColumn, findRegister } = require("../database/interface/read");
+const { listColumn, findRegister, findRegisters } = require("../database/interface/read");
 const {
   validatePassword,
   generatePassword,
@@ -16,6 +16,7 @@ const PasswordsController = require("./PasswordsController");
 const { matchHash } = require("./utils/encryption");
 const EnrollmentsController = require("./EnrollmentsController");
 const ManagersController = require("./ManagersController");
+const { updateRegisterWithID } = require("../database/interface/update");
 const table = "contributors";
 const amountInitial = 0;
 const accountBalanceInitial = 0;
@@ -177,7 +178,7 @@ module.exports = {
     }
 
     const { created_at, updated_at } = getDBTimes();
-    newData = {
+    const newData = {
       full_name: fullName,
       username,
       birthday,
@@ -188,10 +189,7 @@ module.exports = {
     };
 
     try {
-      const peopleUpdating = await PeopleController.updatePeople(
-        newData,
-        req.id
-      );
+      await PeopleController.updatePeople(newData, req.id);
     } catch (error) {
       const tip = error.toString().split(" - ")[1].replace(/\"/g, "");
       return res.status(StatusCodes.BAD_REQUEST).json({ success: false, tip });
@@ -223,4 +221,10 @@ module.exports = {
         return { success: false, message: ErrorMessage.userWrong, err };
       });
   },
+  async findByPeopleID(peopleID){
+    return await findRegister(table, 'fk_people', peopleID);
+  },
+  async updateContributor(newData, id) {
+    return await updateRegisterWithID(table, newData, id);
+  }
 };

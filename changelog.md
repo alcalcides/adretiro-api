@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.21.2] - 2021-02-07
+### Fixed
+- Completes contribution registry pipeline
+
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+
 ## [0.21.1] - 2021-02-07
 ### Changed
 - Renames resource name from 'registry' to 'create'
