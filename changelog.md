@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.22.1] - 2021-02-08
+### Added
+- Orders the resource 'contributions' by 'id'
+
+### Changed
+- Renames properties returned by 'contributions'
+
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+
 ## [0.22.0] - 2021-02-08
 ### Added
 - Launches the resource 'contributions'

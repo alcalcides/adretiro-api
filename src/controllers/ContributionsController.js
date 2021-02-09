@@ -74,11 +74,12 @@ module.exports = {
     const contributorData = await ContributorsController.findByPeopleID(
       peopleID
     );
-    
+
     const contributionsResponse = await dbConnect(table)
       .join("managers", `${table}.fk_manager`, "managers.id")
       .join("people", "people.id", "managers.fk_people")
       .where(`${table}.fk_contributor`, contributorData.id)
+      .orderBy("contributions.id")
       .select(
         "contributions.id",
         "contributions.fk_contributor",
@@ -88,8 +89,11 @@ module.exports = {
       );
 
     const feedback = contributionsResponse.map((register) => ({
+      id: register.id,
       contributor: username,
-      ...register,
+      manager: register.username,
+      value: register.value,
+      date: register.created_at,
     }));
 
     res.status(StatusCodes.OK).json(feedback);
