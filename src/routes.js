@@ -34,6 +34,7 @@ routes.put("/contributors", auth, ContributorsController.update);
 
 
 routes.get("/contributions", authManager, ContributionsController.read);
+routes.get("/contributions/:username", auth, ContributionsController.getContributionsOf);
 routes.post("/contributions", authManager, ContributionsController.create);
 
 routes.post("/authenticate", AuthenticationController.authenticate);
