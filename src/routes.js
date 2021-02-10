@@ -26,9 +26,10 @@ routes.get("/list-departments", DepartmentsController.listDepartments);
 routes.get("/list-departments/:id", auth, EnrollmentsController.enrollmentsOfPerson);
 
 routes.get("/people", authManager, PeopleController.read);
-routes.get("/people/:id", auth, PeopleController.findByID);
+routes.get("/people/:id", auth, PeopleController.findByID_REST);
 
 routes.get("/contributors", authManager, ContributorsController.list);
+routes.get("/contributors/:id", auth, ContributorsController.read);
 routes.post("/contributors", ContributorsController.create);
 routes.put("/contributors", auth, ContributorsController.update);
 

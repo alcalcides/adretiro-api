@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [0.23.0] - 2021-02-09
+### Added
+- Retrieves contributor data
+
+### Changed
+- Renames from findByID to findByID_REST in people controller
+
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+
 ## [0.22.1] - 2021-02-08
 ### Added
 - Orders the resource 'contributions' by 'id'

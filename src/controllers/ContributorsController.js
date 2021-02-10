@@ -2,7 +2,11 @@ const { StatusCodes } = require("http-status-codes");
 const ErrorMessage = require("./utils/errorMessages");
 const { getDBTimes } = require("./utils/getDBTimes");
 const { generateJWT } = require("./utils/generateJWT");
-const { listColumn, findRegister, findRegisters } = require("../database/interface/read");
+const {
+  listColumn,
+  findRegister,
+  findRegisters,
+} = require("../database/interface/read");
 const {
   validatePassword,
   generatePassword,
@@ -26,7 +30,7 @@ module.exports = {
     const fkPeopleList = await listColumn("fk_people", table);
 
     const data = await Promise.all(
-      fkPeopleList.map(async ({fk_people: peopleID}) => {
+      fkPeopleList.map(async ({ fk_people: peopleID }) => {
         const peopleData = await findRegister("people", "id", peopleID);
         const data = {
           fullName: peopleData.full_name,
@@ -37,6 +41,20 @@ module.exports = {
     );
 
     return res.status(StatusCodes.OK).json(data);
+  },
+  async read(req, res) {
+    const peopleID = Number(req.params.id);
+    if (peopleID !== req.id && req.sub !== "manager") {
+      const feedback = {
+        success: false,
+        message: ErrorMessage.credentialError,
+      };
+      return res.status(StatusCodes.BAD_REQUEST).json(feedback);
+    }
+
+    const contributorData = await findRegister(table, "fk_people", peopleID);
+
+    return res.status(StatusCodes.OK).json(contributorData);
   },
   async create(req, res) {
     const {
@@ -221,10 +239,10 @@ module.exports = {
         return { success: false, message: ErrorMessage.userWrong, err };
       });
   },
-  async findByPeopleID(peopleID){
-    return await findRegister(table, 'fk_people', peopleID);
+  async findByPeopleID(peopleID) {
+    return await findRegister(table, "fk_people", peopleID);
   },
   async updateContributor(newData, id) {
     return await updateRegisterWithID(table, newData, id);
-  }
+  },
 };
