@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.23.2] - 2021-02-10
+### Fixed
+- Ignores sql dump files
+
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
 
 ## [0.23.1] - 2021-02-10
 ### Changed

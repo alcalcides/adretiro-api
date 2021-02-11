@@ -28,6 +28,8 @@ async function fillTableStickers() {
     const dbResponse = await createRegister("stickers", data);
     console.log(dbResponse);
   }
+  console.log("done")
+  return true;
 }
 
 fillTableStickers();
