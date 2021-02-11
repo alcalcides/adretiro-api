@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+## [0.23.1] - 2021-02-10
+### Changed
+- Labels have 5 characters
+
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+
 ## [0.23.0] - 2021-02-09
 ### Added
 - Retrieves contributor data

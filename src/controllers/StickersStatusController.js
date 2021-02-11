@@ -3,7 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 const table = "stickers_status";
 
 module.exports = {
-  async read(req, res) {
+  async list(req, res) {
     const dbResponse = await readTable(table);
     return res.status(StatusCodes.OK).json(dbResponse);
   },

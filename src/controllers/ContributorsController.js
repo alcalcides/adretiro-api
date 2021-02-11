@@ -2,11 +2,7 @@ const { StatusCodes } = require("http-status-codes");
 const ErrorMessage = require("./utils/errorMessages");
 const { getDBTimes } = require("./utils/getDBTimes");
 const { generateJWT } = require("./utils/generateJWT");
-const {
-  listColumn,
-  findRegister,
-  findRegisters,
-} = require("../database/interface/read");
+const { listColumn, findRegister } = require("../database/interface/read");
 const {
   validatePassword,
   generatePassword,

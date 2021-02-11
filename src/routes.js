@@ -11,6 +11,7 @@ const authManager = require("./controllers/middleware/authManager");
 const PeopleController = require("./controllers/PeopleController");
 const Ping = require("./controllers/Ping");
 const RewardRequestsController = require("./controllers/RewardRequestsController");
+const StickersController = require("./controllers/StickersController");
 const StickersStatusController = require("./controllers/StickersStatusController");
 
 const routes = Router();
@@ -19,7 +20,9 @@ routes.get("/ping", Ping.helloWorld);
 
 routes.get("/jacobs-sons", JacobsSonsController.read);
 
-routes.get("/stickers-status", StickersStatusController.read);
+routes.get("/stickers-status", authManager, StickersStatusController.list);
+
+routes.post("/stickers/:id", auth, StickersController.reserve);
 
 routes.get("/departments", DepartmentsController.read);
 routes.get("/list-departments", DepartmentsController.listDepartments);
