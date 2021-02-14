@@ -11,6 +11,7 @@ const ErrorMessage = {
   tokenError: "Token Error",
   credentialError: "Credential error",
   dataOutOfRange: "This date is not razonable",
-  lackOfData: "Empty"
+  lackOfData: "Empty",
+  lackOfStickers: "There is no enough available stickers. Your account balance was respected."
 };
 module.exports = ErrorMessage;
