@@ -23,6 +23,7 @@ routes.get("/jacobs-sons", JacobsSonsController.read);
 routes.get("/stickers-status", authManager, StickersStatusController.list);
 
 routes.post("/stickers/:id", auth, StickersController.reserve);
+routes.get("/stickers/:id", auth, StickersController.read);
 
 routes.get("/departments", DepartmentsController.read);
 routes.get("/list-departments", DepartmentsController.listDepartments);

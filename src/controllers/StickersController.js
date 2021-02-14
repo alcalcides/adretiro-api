@@ -1,5 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const stickerPrice = require("../adm");
+const dbConnect = require("../database/connection");
 const { findRegister } = require("../database/interface/read");
 const { updateRegisterWithID } = require("../database/interface/update");
 const ContributorsController = require("./ContributorsController");
@@ -8,6 +9,32 @@ const { getDBTimes } = require("./utils/getDBTimes");
 const table = "stickers";
 
 module.exports = {
+  async read(req, res){
+    peopleID = Number(req.params.id);
+    if (peopleID !== req.id && req.sub !== "manager") {
+      const feedback = {
+        success: false,
+        message: ErrorMessage.credentialError,
+      };
+      return res.status(StatusCodes.BAD_REQUEST).json(feedback);
+    }
+
+    const contributorData = await ContributorsController.findByPeopleID(peopleID);
+
+    const stickersResponse = await dbConnect(table)
+      .join("jacobs_sons", `${table}.fk_jacobs_son`, "jacobs_sons.id")
+      .join("stickers_status", `${table}.fk_sticker_status`, "stickers_status.id")
+      .where(`${table}.fk_contributor`, contributorData.id)
+      .whereNot(`${table}.fk_contributor`, 4)
+      .orderBy(`${table}.fk_sticker_status`, 'desc')
+      .select(
+        `${table}.label`,
+        "jacobs_sons.name",
+        "stickers_status.status"
+      );
+
+    return res.status(StatusCodes.OK).json(stickersResponse)
+  },
   async reserve(req, res) {
     peopleID = Number(req.params.id);
 
