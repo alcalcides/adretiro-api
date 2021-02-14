@@ -25,7 +25,7 @@ module.exports = {
       .join("jacobs_sons", `${table}.fk_jacobs_son`, "jacobs_sons.id")
       .join("stickers_status", `${table}.fk_sticker_status`, "stickers_status.id")
       .where(`${table}.fk_contributor`, contributorData.id)
-      .whereNot(`${table}.fk_contributor`, 4)
+      .whereNot(`${table}.fk_sticker_status`, 4)
       .orderBy(`${table}.fk_sticker_status`, 'desc')
       .select(
         `${table}.label`,
