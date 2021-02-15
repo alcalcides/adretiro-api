@@ -9,8 +9,8 @@ const { getDBTimes } = require("./utils/getDBTimes");
 const table = "stickers";
 
 module.exports = {
-  async read(req, res){
-    peopleID = Number(req.params.id);
+  async read(req, res) {
+    const peopleID = Number(req.params.id);
     if (peopleID !== req.id && req.sub !== "manager") {
       const feedback = {
         success: false,
@@ -19,24 +19,26 @@ module.exports = {
       return res.status(StatusCodes.BAD_REQUEST).json(feedback);
     }
 
-    const contributorData = await ContributorsController.findByPeopleID(peopleID);
+    const contributorData = await ContributorsController.findByPeopleID(
+      peopleID
+    );
 
     const stickersResponse = await dbConnect(table)
       .join("jacobs_sons", `${table}.fk_jacobs_son`, "jacobs_sons.id")
-      .join("stickers_status", `${table}.fk_sticker_status`, "stickers_status.id")
+      .join(
+        "stickers_status",
+        `${table}.fk_sticker_status`,
+        "stickers_status.id"
+      )
       .where(`${table}.fk_contributor`, contributorData.id)
       .whereNot(`${table}.fk_sticker_status`, 4)
-      .orderBy(`${table}.fk_sticker_status`, 'desc')
-      .select(
-        `${table}.label`,
-        "jacobs_sons.name",
-        "stickers_status.status"
-      );
+      .orderBy(`${table}.fk_sticker_status`, "desc")
+      .select(`${table}.label`, "jacobs_sons.name", "stickers_status.status");
 
-    return res.status(StatusCodes.OK).json(stickersResponse)
+    return res.status(StatusCodes.OK).json(stickersResponse);
   },
   async reserve(req, res) {
-    peopleID = Number(req.params.id);
+    const peopleID = Number(req.params.id);
 
     if (peopleID !== req.id) {
       const feedback = {
@@ -84,6 +86,41 @@ module.exports = {
 
     return res.status(StatusCodes.OK).json({ success: true });
   },
+  async reveal(req, res) {
+    const peopleID = req.id;
+    const { id: contributorID } = await ContributorsController.findByPeopleID(
+      peopleID
+    );
+
+    const label = req.params.label;
+    const stickerData = await getStickerByLabel(label);
+
+    if (stickerData.fk_contributor !== contributorID) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ success: false, message: ErrorMessage.credentialError });
+    } else if (stickerData.fk_sticker_status !== 2) {
+      return res
+        .status(StatusCodes.CONFLICT)
+        .json({ success: false, message: ErrorMessage.stickerAlreadyRevealed });
+    }
+
+    const { updated_at } = getDBTimes();
+    const newStickerData = {
+      fk_sticker_status: 3,
+      updated_at,
+    };
+
+    const updateResponse = await updateRegisterWithID(table, newStickerData, stickerData.id);
+    if(updateResponse === 1){
+      const feedback = {success: true}
+      return res.status(StatusCodes.OK).json(feedback);
+    } else {
+      const feedback = {success: false, ...updateResponse}
+      return res.status(StatusCodes.CONFLICT).json(feedback);
+    }
+
+  },
 };
 
 async function lookForAvailableSticker() {
@@ -116,4 +153,8 @@ async function updateContributorAfterObtainSticker(
     newContributorData,
     contributorID
   );
+}
+
+async function getStickerByLabel(label) {
+  return await findRegister(table, "label", label);
 }

@@ -12,6 +12,7 @@ const ErrorMessage = {
   credentialError: "Credential error",
   dataOutOfRange: "This date is not razonable",
   lackOfData: "Empty",
-  lackOfStickers: "There is no enough available stickers. Your account balance was respected."
+  lackOfStickers: "There is no enough available stickers. Your account balance was respected.",
+  stickerAlreadyRevealed: "Sticker already revealed."
 };
 module.exports = ErrorMessage;
