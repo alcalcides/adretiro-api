@@ -131,6 +131,30 @@ module.exports = {
       return res.status(StatusCodes.CONFLICT).json(feedback);
     }
   },
+  async getDistincts(req, res) {
+    const peopleID = Number(req.params.id);
+    if (peopleID !== req.id && req.sub !== "manager") {
+      const feedback = {
+        success: false,
+        message: ErrorMessage.credentialError,
+      };
+      return res.status(StatusCodes.BAD_REQUEST).json(feedback);
+    }
+
+    const contributorData = await ContributorsController.findByPeopleID(
+      peopleID
+    );
+
+    const stickersResponse = await dbConnect(table)
+      .distinct("jacobs_sons.name")
+      .join("jacobs_sons", `${table}.fk_jacobs_son`, "jacobs_sons.id")
+      .where(`${table}.fk_contributor`, contributorData.id)
+      .where(`${table}.fk_sticker_status`, 3)
+
+    const distinctsJacobsSons = stickersResponse.map((value) => value.name);
+
+    return res.status(StatusCodes.OK).json(distinctsJacobsSons);
+  },
 };
 
 async function lookForAvailableSticker() {

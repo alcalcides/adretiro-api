@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.27.0] - 2021-02-15
+### Added
+- Returns album of a person
+
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Sticker table model. The relation with jacob suns should be done when user to click to reveal a sticker.
+
 ## [0.26.1] - 2021-02-15
 ### Fixed
 - Avoids low-balance users request stickers

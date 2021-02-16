@@ -25,6 +25,7 @@ routes.get("/stickers-status", authManager, StickersStatusController.list);
 routes.get("/stickers/:id", auth, StickersController.read);
 routes.post("/stickers/:id", auth, StickersController.reserve);
 routes.post("/stickers/reveal/:label", auth, StickersController.reveal);
+routes.get("/stickers/distincts/:id", auth, StickersController.getDistincts);
 
 routes.get("/departments", DepartmentsController.read);
 routes.get("/list-departments", DepartmentsController.listDepartments);

@@ -19,4 +19,7 @@ module.exports = {
   async listColumn(column, table) {
     return dbConnect(table).select(column);
   },
+  async findDistincts(table, column) {
+    return dbConnect(table).distinct(column).select("*").where(column, value).first();
+  },
 };
