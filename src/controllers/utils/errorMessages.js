@@ -13,6 +13,7 @@ const ErrorMessage = {
   dataOutOfRange: "This date is not razonable",
   lackOfData: "Empty",
   lackOfStickers: "There is no enough available stickers. Your account balance was respected.",
-  stickerAlreadyRevealed: "Sticker already revealed."
+  stickerAlreadyRevealed: "Sticker already revealed.",
+  lowAccountBalance: "Low account balance"
 };
 module.exports = ErrorMessage;

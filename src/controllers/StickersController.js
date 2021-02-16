@@ -57,6 +57,13 @@ module.exports = {
     const qtdOfStickersDeserved = Math.floor(
       contributorData.account_balance / stickerPrice
     );
+
+    if (qtdOfStickersDeserved === 0) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ success: false, message: ErrorMessage.lowAccountBalance });
+    }
+
     let cycles = 0;
     for (cycles = 1; cycles <= qtdOfStickersDeserved; cycles++) {
       try {
@@ -111,15 +118,18 @@ module.exports = {
       updated_at,
     };
 
-    const updateResponse = await updateRegisterWithID(table, newStickerData, stickerData.id);
-    if(updateResponse === 1){
-      const feedback = {success: true}
+    const updateResponse = await updateRegisterWithID(
+      table,
+      newStickerData,
+      stickerData.id
+    );
+    if (updateResponse === 1) {
+      const feedback = { success: true };
       return res.status(StatusCodes.OK).json(feedback);
     } else {
-      const feedback = {success: false, ...updateResponse}
+      const feedback = { success: false, ...updateResponse };
       return res.status(StatusCodes.CONFLICT).json(feedback);
     }
-
   },
 };
 
