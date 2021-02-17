@@ -14,6 +14,7 @@ const ErrorMessage = {
   lackOfData: "Empty",
   lackOfStickers: "There is no enough available stickers. Your account balance was respected.",
   stickerAlreadyRevealed: "Sticker already revealed.",
-  lowAccountBalance: "Low account balance"
+  lowAccountBalance: "Low account balance",
+  collectionUncompleted: "Collection uncompleted"
 };
 module.exports = ErrorMessage;

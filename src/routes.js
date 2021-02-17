@@ -49,6 +49,6 @@ routes.post("/authenticate", AuthenticationController.authenticate);
 routes.get("/managers", authManager, ManagersController.read);
 
 routes.get("/reward-requests", authManager, RewardRequestsController.read);
-routes.post("/reward-requests", auth, RewardRequestsController.create);
+routes.post("/request-reward/:id", auth, RewardRequestsController.create);
 
 module.exports = routes;

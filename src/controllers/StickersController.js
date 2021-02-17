@@ -2,7 +2,10 @@ const { StatusCodes } = require("http-status-codes");
 const stickerPrice = require("../adm");
 const dbConnect = require("../database/connection");
 const { findRegister } = require("../database/interface/read");
-const { updateRegisterWithID } = require("../database/interface/update");
+const {
+  updateRegisterWithID,
+  updateRegisterWhereAndWhere,
+} = require("../database/interface/update");
 const ContributorsController = require("./ContributorsController");
 const ErrorMessage = require("./utils/errorMessages");
 const { getDBTimes } = require("./utils/getDBTimes");
@@ -145,17 +148,33 @@ module.exports = {
       peopleID
     );
 
-    const stickersResponse = await dbConnect(table)
-      .distinct("jacobs_sons.name")
-      .join("jacobs_sons", `${table}.fk_jacobs_son`, "jacobs_sons.id")
-      .where(`${table}.fk_contributor`, contributorData.id)
-      .where(`${table}.fk_sticker_status`, 3)
-
-    const distinctsJacobsSons = stickersResponse.map((value) => value.name);
+    const distinctsJacobsSons = await listDistinctJacobsSonsOf(contributorData);
 
     return res.status(StatusCodes.OK).json(distinctsJacobsSons);
   },
+  async listDistinctJacobsSonsOf(contributorData) {
+    const temp = await getDistinctJacobsSonsOf(contributorData);
+    const listOfSons = temp.map((value) => value.name);
+    return listOfSons;
+  },
+  async archiveStickersOf(contributorID, updated_at) {
+    return await achiveSticker(contributorID, updated_at);
+  },
 };
+
+async function getDistinctJacobsSonsOf(contributorData) {
+  return await dbConnect(table)
+    .distinct("jacobs_sons.name")
+    .join("jacobs_sons", `${table}.fk_jacobs_son`, "jacobs_sons.id")
+    .where(`${table}.fk_contributor`, contributorData.id)
+    .where(`${table}.fk_sticker_status`, 3);
+}
+
+async function listDistinctJacobsSonsOf(contributorData) {
+  const temp = await getDistinctJacobsSonsOf(contributorData);
+
+  return temp.map((value) => value.name);
+}
 
 async function lookForAvailableSticker() {
   return await findRegister(table, "fk_sticker_status", 1);
@@ -168,6 +187,15 @@ async function reserverSticker(stickerID, fk_contributor, updated_at) {
     updated_at,
   };
   return await updateRegisterWithID(table, newStickerData, stickerID);
+}
+
+async function achiveSticker(fk_contributor, updated_at) {
+  return await updateRegisterWhereAndWhere(
+    table,
+    { fk_sticker_status: 4 },
+    "fk_contributor", "=", fk_contributor,
+    "fk_sticker_status", "=", 3
+  );
 }
 
 async function updateContributorAfterObtainSticker(
