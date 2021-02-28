@@ -4,6 +4,7 @@ const ErrorMessage = {
   termsOfUse: "Accept Terms of Use",
   alreadyEnrolled: "Enrollment already exists",
   lackOfUsername: "It misses username",
+  lackOfEmail: "It misses email address",
   passwordWrong: "Password doesn't match",
   userWrong: "Username incorrect or not exists",
   userNotFound: "User not found",
@@ -15,6 +16,7 @@ const ErrorMessage = {
   lackOfStickers: "There is no enough available stickers. Your account balance was respected.",
   stickerAlreadyRevealed: "Sticker already revealed.",
   lowAccountBalance: "Low account balance",
-  collectionUncompleted: "Collection uncompleted"
+  collectionUncompleted: "Collection uncompleted",
+  strangeOrigin: "Strange origin"
 };
 module.exports = ErrorMessage;

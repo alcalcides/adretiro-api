@@ -8,6 +8,7 @@ const JacobsSonsController = require("./controllers/JacobsSonsController");
 const ManagersController = require("./controllers/ManagersController");
 const auth = require("./controllers/middleware/auth");
 const authManager = require("./controllers/middleware/authManager");
+const PasswordsController = require("./controllers/PasswordsController");
 const PeopleController = require("./controllers/PeopleController");
 const Ping = require("./controllers/Ping");
 const RewardRequestsController = require("./controllers/RewardRequestsController");
@@ -39,7 +40,6 @@ routes.get("/contributors/:id", auth, ContributorsController.read);
 routes.post("/contributors", ContributorsController.create);
 routes.put("/contributors", auth, ContributorsController.update);
 
-
 routes.get("/contributions", authManager, ContributionsController.read);
 routes.get("/contributions/:username", auth, ContributionsController.getContributionsOf);
 routes.post("/contributions", authManager, ContributionsController.create);
@@ -50,5 +50,9 @@ routes.get("/managers", authManager, ManagersController.read);
 
 routes.get("/reward-requests", authManager, RewardRequestsController.read);
 routes.post("/request-reward/:id", auth, RewardRequestsController.create);
+
+routes.post("/request-password-recovery/:username",
+  PasswordsController.sendPasswordRecoveryForm
+);
 
 module.exports = routes;
