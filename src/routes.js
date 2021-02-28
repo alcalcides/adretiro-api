@@ -55,4 +55,6 @@ routes.post("/request-password-recovery/:username",
   PasswordsController.sendPasswordRecoveryForm
 );
 
+routes.post("/update-password", PasswordsController.update);
+
 module.exports = routes;

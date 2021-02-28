@@ -81,7 +81,9 @@ If you want run all seeds, use:
 
 ```shell
 ~ heroku config:set PASSWORD_ENCRYPTION_ROUNDS=XXXX
-~ heroku config:set JWT_PRIVATE_KEY=YYYY
+~ heroku config:set JWT_PRIVATE_KEY=XXXX
+~ heroku config:set MAIL_USER=XXXX
+~ heroku config:set MAIL_PASSWORD=XXXX
 ```
 
 9) Build the main table (stickers):
