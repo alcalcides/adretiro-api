@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [0.29.1] - 2021-02-27
+### Fixed
+- Fixes error response
+
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Sticker table model. The relation with jacob suns should be done when user to click to reveal a sticker.
+
 ## [0.29.0] - 2021-02-27
 ### Added
 - Sends password recovery email

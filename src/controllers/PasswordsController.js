@@ -53,28 +53,28 @@ module.exports = {
     if (!isAValidOrigin(origin)) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ status: false, message: ErrorMessage.strangeOrigin });
+        .json({ success: false, message: ErrorMessage.strangeOrigin });
     }
 
     const { username } = req.params;
     if (!username) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ status: false, message: ErrorMessage.lackOfUsername });
+        .json({ success: false, message: ErrorMessage.lackOfUsername });
     }
 
     const peopleData = await PeopleControler.findByUsername(username);
     if (!peopleData) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ status: false, message: ErrorMessage.userNotFound });
+        .json({ success: false, message: ErrorMessage.userNotFound });
     }
 
     const { email } = peopleData;
     if (!email) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ status: false, message: ErrorMessage.lackOfEmail });
+        .json({ success: false, message: ErrorMessage.lackOfEmail });
     }
 
     const emailForm = await emailFormBuilder(email, username, origin);
