@@ -2,7 +2,7 @@ const { StatusCodes } = require("http-status-codes");
 const { createRegister } = require("../database/interface/create");
 const { deleteRegister } = require("../database/interface/delete");
 const { findRegister } = require("../database/interface/read");
-const { generateSalt, generateHash } = require("./utils/encryption");
+const { generateSalt, generateHash, matchHash } = require("./utils/encryption");
 const { getDBTimes } = require("./utils/getDBTimes");
 const ErrorMessage = require("./utils/errorMessages");
 const numberOfCycles = parseInt(process.env.PASSWORD_ENCRYPTION_ROUNDS, 10);
@@ -44,6 +44,9 @@ module.exports = {
     }
 
     return true;
+  },
+  async mirrorPasswords(password, hash) {
+    return await matchHash(password, hash);
   },
   async findByID(id) {
     const dbResponse = await findRegister(table, "id", id);

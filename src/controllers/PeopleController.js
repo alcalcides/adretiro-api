@@ -16,6 +16,9 @@ module.exports = {
     const dbResponse = await findRegister(table, "id", id);
     return res.status(StatusCodes.OK).json(dbResponse);
   },
+  async findByID(id) {
+    return await findRegister(table, "id", id);
+  },
   async findByUsername(username) {
     return await findRegister(table, "username", username);
   },

@@ -3,20 +3,12 @@ const ErrorMessage = require("./utils/errorMessages");
 const { getDBTimes } = require("./utils/getDBTimes");
 const { generateJWT } = require("./utils/generateJWT");
 const { listColumn, findRegister } = require("../database/interface/read");
-const {
-  validatePassword,
-  generatePassword,
-  deletePassword,
-} = require("./PasswordsController");
 const { createRegister } = require("../database/interface/create");
-const { createPeople } = require("./PeopleController");
-const { enrollInDepartments } = require("./EnrollmentsController");
+const { updateRegisterWithID } = require("../database/interface/update");
 const PeopleController = require("./PeopleController");
 const PasswordsController = require("./PasswordsController");
-const { matchHash } = require("./utils/encryption");
 const EnrollmentsController = require("./EnrollmentsController");
 const ManagersController = require("./ManagersController");
-const { updateRegisterWithID } = require("../database/interface/update");
 const table = "contributors";
 const amountInitial = 0;
 const accountBalanceInitial = 0;
@@ -27,7 +19,7 @@ module.exports = {
 
     const data = await Promise.all(
       fkPeopleList.map(async ({ fk_people: peopleID }) => {
-        const peopleData = await findRegister("people", "id", peopleID);
+        const peopleData = await PeopleController.findByID(peopleID);
         const data = {
           fullName: peopleData.full_name,
           username: peopleData.username,
@@ -72,7 +64,7 @@ module.exports = {
         .json({ success: false, message: ErrorMessage.termsOfUse });
     }
 
-    const isPasswordOK = validatePassword(password);
+    const isPasswordOK = PasswordsController.validatePassword(password);
     if (isPasswordOK !== true) {
       return res
         .status(StatusCodes.BAD_REQUEST)
@@ -82,7 +74,7 @@ module.exports = {
     // user registration
     const { created_at, updated_at } = getDBTimes();
 
-    const dbResponsePassword = await generatePassword(
+    const dbResponsePassword = await PasswordsController.generatePassword(
       password,
       created_at,
       updated_at
@@ -103,9 +95,9 @@ module.exports = {
     var dbResponsePeople;
 
     try {
-      dbResponsePeople = await createPeople(dataForPeople);
+      dbResponsePeople = await PeopleController.createPeople(dataForPeople);
     } catch (error) {
-      deletePassword(dbResponsePassword.id);
+      PasswordsController.deletePassword(dbResponsePassword.id);
       return res.status(StatusCodes.CONFLICT).json({
         success: false,
         message: ErrorMessage.alreadyEnrolled,
@@ -113,7 +105,7 @@ module.exports = {
       });
     }
 
-    await enrollInDepartments(
+    await EnrollmentsController.enrollInDepartments(
       dbResponsePeople.id,
       enrolledDepartments,
       created_at
@@ -138,7 +130,6 @@ module.exports = {
     return res.status(StatusCodes.OK).json({ token });
   },
   async update(req, res) {
-    const idToken = req.id;
     const {
       fullName,
       username,
@@ -167,7 +158,7 @@ module.exports = {
       });
     }
 
-    const isPasswordOK = validatePassword(password);
+    const isPasswordOK = PasswordsController.validatePassword(password);
     if (isPasswordOK !== true) {
       return res
         .status(StatusCodes.BAD_REQUEST)
@@ -184,7 +175,7 @@ module.exports = {
     }
 
     const { hash } = await PasswordsController.findByID(peopleData.fk_password);
-    const isTruth = await matchHash(password, hash);
+    const isTruth = await PasswordsController.mirrorPasswords(password, hash); 
     if (!isTruth) {
       return res
         .status(StatusCodes.BAD_REQUEST)
@@ -212,7 +203,7 @@ module.exports = {
     // atualizar enrollments
     await EnrollmentsController.cancelEnrollments(req.id);
     if (enrolledDepartments !== undefined) {
-      await enrollInDepartments(req.id, enrolledDepartments, created_at);
+      await EnrollmentsController.enrollInDepartments(req.id, enrolledDepartments, created_at);
     }
 
     const isManager = await ManagersController.findByFKPeople(peopleData.id);
@@ -242,3 +233,4 @@ module.exports = {
     return await updateRegisterWithID(table, newData, id);
   },
 };
+
