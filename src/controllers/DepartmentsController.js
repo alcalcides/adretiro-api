@@ -12,7 +12,6 @@ module.exports = {
     return res.status(StatusCodes.OK).json(dbResponse);
   },
   async listDepartments(req, res) {
-    console.log(req.headers)
     const dbResponse = await listColumn("name", table);
     const departments = dbResponse.map((departament) => departament.name);
     return res.status(StatusCodes.OK).json(departments);

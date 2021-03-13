@@ -8,6 +8,7 @@ module.exports = {
 	    password: '123456',
       database: 'adretiro'
     },
+    // connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
       max: 10
