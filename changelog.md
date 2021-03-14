@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.32.0] - 2021-03-14
+### Added
+- Admins can see reward requests
+
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Sticker table model. The relation with jacob suns should be done when user to click to reveal a sticker. Grant the normal distribution doesn't has a very little q.
+- Rename ContributorsController.findByPeopleID to ContributorsController.findContributoryByPeopleID
+
 ## [0.31.0] - 2021-03-14
 ### Changed
 - Admins can see the table 'contributions'
