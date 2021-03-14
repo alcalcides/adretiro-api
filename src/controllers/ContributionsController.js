@@ -1,7 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const dbConnect = require("../database/connection");
 const { createRegister } = require("../database/interface/create");
-const { readTable } = require("../database/interface/read");
 const ContributorsController = require("./ContributorsController");
 const PeopleController = require("./PeopleController");
 const ErrorMessage = require("./utils/errorMessages");
@@ -10,7 +9,20 @@ const table = "contributions";
 
 module.exports = {
   async read(req, res) {
-    const dbResponse = await readTable(table);
+    const dbResponse = await dbConnect(table)
+      .join("managers", "contributions.fk_manager", "managers.id")
+      .join("people as peopleManager", "peopleManager.id", "managers.fk_people")
+      .join("contributors", "contributions.fk_contributor", "contributors.id")
+      .join("people as peopleContributor", "peopleContributor.id", "contributors.id")
+      .orderBy("contributions.id")
+      .select(
+        "contributions.id",
+        "peopleManager.username as managerUsername",
+        "peopleContributor.username as contributorUsername",
+        "contributions.value",
+        "contributions.created_at"
+      );
+    
     return res.status(StatusCodes.OK).json(dbResponse);
   },
   async create(req, res) {
