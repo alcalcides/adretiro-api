@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.30.8] - 2021-03-13
+### Fixed
+- Recoveres ssl connection with postgres
+
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Sticker table model. The relation with jacob suns should be done when user to click to reveal a sticker. Grant the normal distribution doesn't has a very little q.
+- Rename ContributorsController.findByPeopleID to ContributorsController.findContributoryByPeopleID
+
 ## [0.30.7] - 2021-03-13
 ### Removed
 - Doesn't print environment variables
