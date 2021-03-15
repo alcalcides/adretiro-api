@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2021-03-15
+### Added
+- Relates players rank
+
+### Fixed
+- Avoids comum users get stickers account
+
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Sticker table model. The relation with jacob suns should be done when user to click to reveal a sticker. Grant the normal distribution doesn't has a very little q.
+- Rename ContributorsController.findByPeopleID to ContributorsController.findContributoryByPeopleID
+
 ## [0.34.0] - 2021-03-14
 ### Added
 - Calculates stickers by status

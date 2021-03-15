@@ -180,7 +180,25 @@ module.exports = {
 
       return res.status(StatusCodes.OK).json({ stickerAccount });
     }
-  }
+  },
+  async getRank(req, res) {
+    const { rows, rowCount } = await dbConnect.raw(`
+      select fk_contributor, count(*) 
+      from (select distinct fk_contributor, fk_jacobs_son, fk_sticker_status from stickers ) 
+        as subset 
+      where fk_sticker_status = 3 
+      group by fk_contributor 
+      order by count desc;`);
+
+    const rank = [];
+    await Promise.all(
+      rows.map((value, index) => {
+        rank.push({ ...value, place: index + 1 });
+      })
+    );
+
+    return res.status(StatusCodes.OK).json({ rank, playerCount: rowCount });
+  },
 };
 
 async function getDistinctJacobsSonsOf(contributorData) {
