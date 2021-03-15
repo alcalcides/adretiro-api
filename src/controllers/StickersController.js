@@ -7,6 +7,7 @@ const {
   updateRegisterWhereAndWhere,
 } = require("../database/interface/update");
 const ContributorsController = require("./ContributorsController");
+const StickersStatusController = require("./StickersStatusController");
 const ErrorMessage = require("./utils/errorMessages");
 const { getDBTimes } = require("./utils/getDBTimes");
 const table = "stickers";
@@ -160,6 +161,26 @@ module.exports = {
   async archiveStickersOf(contributorID, updated_at) {
     return await achiveSticker(contributorID, updated_at);
   },
+  async getStickersAccount(req, res) {
+    const { status } = req.query;
+    if (!status) {
+
+      const [{ count: stickerAccount }] = await dbConnect(table).count("id");
+      return res.status(StatusCodes.OK).json({ stickerAccount });
+
+    } else {
+
+      const { id: statusID } = await StickersStatusController.getStatusCodeOf(
+        String(status).toUpperCase()
+      );
+
+      const [{ count: stickerAccount }] = await dbConnect(table)
+        .count("id")
+        .where("fk_sticker_status", statusID);
+
+      return res.status(StatusCodes.OK).json({ stickerAccount });
+    }
+  }
 };
 
 async function getDistinctJacobsSonsOf(contributorData) {

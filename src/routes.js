@@ -24,6 +24,7 @@ routes.get("/jacobs-sons", JacobsSonsController.read);
 routes.get("/stickers-status", authManager, StickersStatusController.list);
 
 routes.get("/stickers/:id", auth, StickersController.read);
+routes.get("/stickers", auth, StickersController.getStickersAccount);
 routes.post("/stickers/:id", auth, StickersController.reserve);
 routes.post("/stickers/reveal/:label", auth, StickersController.reveal);
 routes.get("/stickers/distincts/:id", auth, StickersController.getDistincts);
