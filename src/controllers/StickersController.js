@@ -183,11 +183,13 @@ module.exports = {
   },
   async getRank(req, res) {
     const { rows, rowCount } = await dbConnect.raw(`
-      select fk_contributor, count(*) 
+      select username, full_name, count(*) 
       from (select distinct fk_contributor, fk_jacobs_son, fk_sticker_status from stickers ) 
         as subset 
+      join contributors on fk_contributor = contributors.id
+      join people on contributors.fk_people = people.id
       where fk_sticker_status = 3 
-      group by fk_contributor 
+      group by fk_contributor, username, full_name 
       order by count desc;`);
 
     const rank = [];
