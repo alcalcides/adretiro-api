@@ -111,7 +111,10 @@ module.exports = {
     res.status(StatusCodes.OK).json(feedback);
   },
   async getContributionTotal(req, res) {
-    const [{sum: contributionTotal}] = await dbConnect(table).sum("value");
+    const [{sum}] = await dbConnect(table).sum("value");
+    let contributionTotal = sum;
+    if(!sum) contributionTotal = 0
+    
     res.status(StatusCodes.OK).json({contributionTotal})
   }
 };
