@@ -1,6 +1,9 @@
 require('dotenv').config();
 const app = require("./app");
 
-app.listen(process.env.PORT || 3333);
+const port = process.env.PORT || 3333;
 
-console.log("ok " + new Date());
+app.listen(port);
+
+console.log(`Starting on ${new Date()}`);
+console.log(`App running in the port ${port}`);
