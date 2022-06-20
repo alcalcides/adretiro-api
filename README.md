@@ -15,17 +15,38 @@ npm init -y
 npm i express
 ```
 
-So, after clone the project and set up database, you can run with:
+So, after clone the project and [set up database](#database-setup), you can run with:
 
 ```shell
 npm install
-npm start
+npm run dev
 ```
-
 
 ### Database setup
 
-This projetct used [Postgres](https://www.postgresql.org/) and [knex.js](https://knexjs.org/). The following describes how it can be done.
+1) Install Postgres your way, but think about version compatibility
+2) Access sql bash
+3) Create de database 'adretiro'
+4) Set up a password for development environment. To this, 123456 works fines, don't worry.
+5) Run knex script to create tables and feed them
+
+```shell
+$ npx knex migrate:latest
+$ npx knex seed:run
+```
+
+6) Run special JS script to feed the table 'stickers'
+
+```shell
+$ npm run fill-table-stickers
+```
+
+7) Create an admin user: create a user using the app adretiro and update the register directally into SQL CLI
+
+
+#### Database first setup report
+
+This projetct used [Postgres](https://www.postgresql.org/) and [knex.js](https://knexjs.org/). The following describes how it was done.
 
 1) Install Postgres.
 2) Install knex and postgres driver.
@@ -55,9 +76,9 @@ To perform migration in heroku environment, you can run locally:
 ~ heroku run knex migrate:latest
 ```
 
-5) See the table created in database. You can use [PgAdmin4](https://www.pgadmin.org).
+5) See the table created in database. If you prefer GUI, be free to use [PgAdmin4](https://www.pgadmin.org).
 
-6) Fill convenient tables with knex's feature seed. First set up the seed directory in knexfile and so: 
+6) Feed convenient tables with knex's feature seed. First set up the seed directory in knexfile and so: 
 
 ```shell
 ~ knex seed:make 001_fill_jacobs_sons
