@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.5] - 2022-06-20
 ### Changed
+- Upgrades dependencies
 - Changes npm by yarn
 - Print the port number when the app starting
 
