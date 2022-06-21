@@ -1,4 +1,4 @@
-function isAValidOrigin(origin) {
+export function isAValidOrigin(origin) {
   switch (origin) {
     case "https://localhost:3000":
     case "https://adretiro-dev.herokuapp.com":
@@ -8,5 +8,3 @@ function isAValidOrigin(origin) {
       return false;
   }
 }
-
-module.exports = { isAValidOrigin };

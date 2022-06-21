@@ -1,2 +1,1 @@
-const stickerPrice = 50;
-module.exports = stickerPrice
+export const stickerPrice = 50;

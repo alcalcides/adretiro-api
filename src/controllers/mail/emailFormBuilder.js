@@ -1,7 +1,7 @@
 const subject = "Recuperação de Senha";
-const { setup } = require("./mail-config");
-const { getMessage } = require("./content");
-const { generateJWT } = require("../utils/generateJWT");
+import { setup } from "./mail-config.js";
+import { getMessage } from "./content.js";
+import { generateJWT } from "../utils/generateJWT.js";
 
 async function loadMessage(origin, username) {
   const passwordRecoveryLink = await PasswordRecoveryLinkBuilder(origin, username);
@@ -13,7 +13,7 @@ async function PasswordRecoveryLinkBuilder(origin, username) {
   return `${origin}/reset-password?auth=${auth}`;
 }
 
-async function emailFormBuilder(email, username, origin) {  
+export async function emailFormBuilder(email, username, origin) {  
   return {
     from: setup.auth.user,
     to: email,
@@ -21,5 +21,3 @@ async function emailFormBuilder(email, username, origin) {
     html: await loadMessage(origin, username),
   };
 }
-
-module.exports = { emailFormBuilder };

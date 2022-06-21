@@ -1,4 +1,4 @@
-exports.up = (knex) => {
+export function up(knex) {
   return knex.schema.createTable("passwords", (table) => {
       table.increments("id").primary();
       table.string("hash");
@@ -8,8 +8,8 @@ exports.up = (knex) => {
       table.timestamp("created_at");
       table.timestamp("updated_at");
   });
-};
+}
 
-exports.down = (knex) => {
+export function down(knex) {
   return knex.schema.dropTable("passwords");
-};
+}

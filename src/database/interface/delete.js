@@ -1,7 +1,5 @@
-const dbConnect = require("../connection");
+import dbConnect from "../connection.js";
 
-module.exports = {
-  async deleteRegister(table, field, value) {
-    return await dbConnect(table).where(field, value).del();
-  },
-};
+export async function deleteRegister(table, field, value) {
+  return await dbConnect(table).where(field, value).del();
+}

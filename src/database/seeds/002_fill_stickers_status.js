@@ -1,11 +1,11 @@
-const { deleteTable } = require("../utils/deleteTable");
+import { deleteTable } from "../utils/deleteTable.js";
 
 const tableName = "stickers_status";
 
-exports.seed = (knex) => {
+export function seed(knex) {
   return deleteTable(tableName, knex)
     .then(() => fillStickersStatus(knex));
-};
+}
 
 function fillStickersStatus(knex) {
   return knex(tableName).insert([

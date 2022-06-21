@@ -1,13 +1,11 @@
-const { readTable, findRegister } = require("../database/interface/read");
-const { StatusCodes } = require("http-status-codes");
+import { StatusCodes } from "http-status-codes";
+import { readTable, findRegister } from "../database/interface/read.js";
 const table = "stickers_status";
 
-module.exports = {
-  async list(req, res) {
-    const dbResponse = await readTable(table);
-    return res.status(StatusCodes.OK).json(dbResponse);
-  },  
-  async getStatusCodeOf(status) {
-    return await findRegister(table, "status", status);
-  }
-};
+export async function list(req, res) {
+  const dbResponse = await readTable(table);
+  return res.status(StatusCodes.OK).json(dbResponse);
+}
+export async function getStatusCodeOf(status) {
+  return await findRegister(table, "status", status);
+}

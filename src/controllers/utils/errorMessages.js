@@ -1,4 +1,4 @@
-const ErrorMessage = {
+const errorMessage = {
   lackOfPassword: "It misses password",
   passwordSize: "Passwords must have between 8 and 25 characters",
   termsOfUse: "Accept Terms of Use",
@@ -19,4 +19,5 @@ const ErrorMessage = {
   collectionUncompleted: "Collection uncompleted",
   strangeOrigin: "Strange origin"
 };
-module.exports = ErrorMessage;
+
+export default errorMessage

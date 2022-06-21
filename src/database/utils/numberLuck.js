@@ -1,4 +1,4 @@
-var randomizer = require("random-number");
+import randomizer from "random-number";
 
 function shotANumber(min, max) {
   var options = { min, max, integer: true };
@@ -49,14 +49,9 @@ function analyzeChosens(chosens) {
   return counter;
 }
 
-module.exports = {
-  /**
-   * Returns a vector with 2004 numbers between 1 and 12
-   */
-  raffle() {
-    const chosens = setUpLots();
-    const analyses = analyzeChosens(chosens);
-    const success = analyses.find((value) => value === 168) === undefined;
-    return { chosens, success };
-  },
-};
+export function raffle() {
+  const chosens = setUpLots();
+  const analyses = analyzeChosens(chosens);
+  const success = analyses.find((value) => value === 168) === undefined;
+  return { chosens, success };
+}

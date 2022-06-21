@@ -1,4 +1,4 @@
-exports.up = (knex) => {
+export function up(knex) {
   return knex.schema.createTable("reward_requests", (table) => {
     table.increments("id").primary();
     table.integer("fk_contributor").notNullable();
@@ -8,8 +8,8 @@ exports.up = (knex) => {
 
     table.foreign("fk_contributor").references("id").inTable("contributors");
   });
-};
+}
 
-exports.down = (knex) => {
+export function down(knex) {
   return knex.schema.dropTable("reward_requests");
-};
+}

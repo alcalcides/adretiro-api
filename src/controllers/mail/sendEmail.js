@@ -1,9 +1,8 @@
-const nodemailer = require("nodemailer");
-const { setup } = require("./mail-config.js");
+import nodemailer from "nodemailer"
 
-function sendEMail(emailForm) {
+import { setup } from "./mail-config.js"
+
+export function sendEMail(emailForm) {
   const remetente = nodemailer.createTransport(setup);
   return remetente.sendMail(emailForm);
 }
-
-module.exports = { sendEMail }

@@ -1,29 +1,30 @@
-const { StatusCodes } = require("http-status-codes");
-const ErrorMessage = require("../utils/errorMessages");
-const { verifyJWT } = require("../utils/verifyJWT");
+import { StatusCodes } from "http-status-codes";
+import errorMessages from "../utils/errorMessages.js";
+const { noToken, tokenError } = errorMessages;
+import { verifyJWT } from "../utils/verifyJWT.js";
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   // validations
   if (!authHeader) {
     return res
       .status(StatusCodes.UNAUTHORIZED)
-      .send({ success: false, message: ErrorMessage.noToken });
+      .send({ success: false, message: noToken });
   }
 
   const parts = authHeader.split(" ");
   if (!parts.length === 2) {
     return res
       .status(StatusCodes.UNAUTHORIZED)
-      .send({ success: false, message: ErrorMessage.tokenError });
+      .send({ success: false, message: tokenError });
   }
 
   const [scheme, token] = parts;
   if (scheme !== "Bearer" || (!!token && token.length < 1)) {
     return res
       .status(StatusCodes.UNAUTHORIZED)
-      .send({ success: false, message: ErrorMessage.tokenError });
+      .send({ success: false, message: tokenError });
   }
 
   verifyJWT(token)
@@ -36,6 +37,6 @@ module.exports = (req, res, next) => {
     .catch((err) => {
       return res
         .status(StatusCodes.UNAUTHORIZED)
-        .send({ success: false, message: ErrorMessage.tokenError, err });
+        .send({ success: false, message: tokenError, err });
     });
 };

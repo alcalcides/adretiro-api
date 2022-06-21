@@ -1,7 +1,9 @@
-const { getDBTimes } = require("../../controllers/utils/getDBTimes");
-const { createRegister } = require("../interface/create");
-const { raffle } = require("../utils/numberLuck");
-const cryptoRandomString = require("crypto-random-string");
+import cryptoRandomString from "crypto-random-string";
+
+import { getDBTimes } from "../../controllers/utils/getDBTimes.js";
+import { createRegister } from "../interface/create.js";
+import { raffle } from "../utils/numberLuck.js";
+
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const labelSize = 5;
 

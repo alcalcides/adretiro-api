@@ -1,6 +1,6 @@
-var jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
-function verifyJWT(token, privateKey = process.env.JWT_PRIVATE_KEY) {
+export function verifyJWT(token, privateKey = process.env.JWT_PRIVATE_KEY) {
   return new Promise((resolve, reject) => {
     jwt.verify(token, privateKey, null, (err, decoded) => {
       if (err) reject(err);
@@ -8,4 +8,4 @@ function verifyJWT(token, privateKey = process.env.JWT_PRIVATE_KEY) {
     });
   });
 }
-exports.verifyJWT = verifyJWT;
+

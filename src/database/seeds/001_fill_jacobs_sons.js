@@ -1,11 +1,11 @@
-const { deleteTable } = require("../utils/deleteTable");
+import { deleteTable } from "../utils/deleteTable.js";
 
 const tableName = "jacobs_sons";
 
-exports.seed = (knex) => {
+export function seed(knex) {
   return deleteTable(tableName, knex)
     .then(() => fillJacobsSons(knex));
-};
+}
 
 function fillJacobsSons(knex) {
   return knex(tableName).insert([

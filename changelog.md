@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.6] - 2022-06-20
+### Fixed
+- Applies ES6 syntax in whole code base
+
+### Deprecated
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Sticker table model. The relation with jacob suns should be done when user to click to reveal a sticker. Grant the normal distribution doesn't has a very little q.
+- Rename ContributorsController.findByPeopleID to ContributorsController.findContributoryByPeopleID
+
 ## [1.0.5] - 2022-06-20
 ### Changed
 - Upgrades dependencies

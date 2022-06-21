@@ -1,63 +1,63 @@
-const { Router } = require("express");
-const AuthenticationController = require("./controllers/AuthenticationController");
-const ContributionsController = require("./controllers/ContributionsController");
-const ContributorsController = require("./controllers/ContributorsController");
-const DepartmentsController = require("./controllers/DepartmentsController");
-const EnrollmentsController = require("./controllers/EnrollmentsController");
-const JacobsSonsController = require("./controllers/JacobsSonsController");
-const ManagersController = require("./controllers/ManagersController");
-const auth = require("./controllers/middleware/auth");
-const authManager = require("./controllers/middleware/authManager");
-const PasswordsController = require("./controllers/PasswordsController");
-const PeopleController = require("./controllers/PeopleController");
-const Ping = require("./controllers/Ping");
-const RewardRequestsController = require("./controllers/RewardRequestsController");
-const StickersController = require("./controllers/StickersController");
-const StickersStatusController = require("./controllers/StickersStatusController");
+import { Router } from "express";
+import { authenticate } from "./controllers/AuthenticationController.js";
+import { read, getContributionsOf, create, getContributionTotal } from "./controllers/ContributionsController.js";
+import { list, read as Contributors_Read, create as Contributors_Create, update } from "./controllers/ContributorsController.js";
+import { read as Departments_Read, listDepartments } from "./controllers/DepartmentsController.js";
+import { enrollmentsOfPerson } from "./controllers/EnrollmentsController.js";
+import { read as JacobsSons_Read } from "./controllers/JacobsSonsController.js";
+import { read as Managers_Read } from "./controllers/ManagersController.js";
+import auth from "./controllers/middleware/auth.js";
+import authManager from "./controllers/middleware/authManager.js";
+import { sendPasswordRecoveryForm, update as _update } from "./controllers/PasswordsController.js";
+import { read as People_Read, findByID_REST } from "./controllers/PeopleController.js";
+import { helloWorld } from "./controllers/Ping.js";
+import { read as RewardRequests_Read, create as RewardRequests_Create } from "./controllers/RewardRequestsController.js";
+import { read as Stickers_Read, getStickersAccount, getRank, reserve, reveal, getDistincts } from "./controllers/StickersController.js";
+import { list as _list } from "./controllers/StickersStatusController.js";
 
 const routes = Router();
 
-routes.get("/ping", Ping.helloWorld);
+routes.get("/ping", helloWorld);
 
-routes.get("/jacobs-sons", JacobsSonsController.read);
+routes.get("/jacobs-sons", JacobsSons_Read);
 
-routes.get("/stickers-status", authManager, StickersStatusController.list);
+routes.get("/stickers-status", authManager, _list);
 
-routes.get("/stickers/:id", auth, StickersController.read);
-routes.get("/stickers", authManager, StickersController.getStickersAccount);
-routes.get("/stickers-rank", authManager, StickersController.getRank);
-routes.post("/stickers/:id", auth, StickersController.reserve);
-routes.post("/stickers/reveal/:label", auth, StickersController.reveal);
-routes.get("/stickers/distincts/:id", auth, StickersController.getDistincts);
+routes.get("/stickers/:id", auth, Stickers_Read);
+routes.get("/stickers", authManager, getStickersAccount);
+routes.get("/stickers-rank", authManager, getRank);
+routes.post("/stickers/:id", auth, reserve);
+routes.post("/stickers/reveal/:label", auth, reveal);
+routes.get("/stickers/distincts/:id", auth, getDistincts);
 
-routes.get("/departments", DepartmentsController.read);
-routes.get("/list-departments", DepartmentsController.listDepartments);
-routes.get("/list-departments/:id", auth, EnrollmentsController.enrollmentsOfPerson);
+routes.get("/departments", Departments_Read);
+routes.get("/list-departments", listDepartments);
+routes.get("/list-departments/:id", auth, enrollmentsOfPerson);
 
-routes.get("/people", authManager, PeopleController.read);
-routes.get("/people/:id", auth, PeopleController.findByID_REST);
+routes.get("/people", authManager, People_Read);
+routes.get("/people/:id", auth, findByID_REST);
 
-routes.get("/contributors", authManager, ContributorsController.list);
-routes.get("/contributors/:id", auth, ContributorsController.read);
-routes.post("/contributors", ContributorsController.create);
-routes.put("/contributors", auth, ContributorsController.update);
+routes.get("/contributors", authManager, list);
+routes.get("/contributors/:id", auth, Contributors_Read);
+routes.post("/contributors", Contributors_Create);
+routes.put("/contributors", auth, update);
 
-routes.get("/contributions", authManager, ContributionsController.read);
-routes.get("/contributions/:username", auth, ContributionsController.getContributionsOf);
-routes.post("/contributions", authManager, ContributionsController.create);
-routes.get("/contribution-total", authManager, ContributionsController.getContributionTotal)
+routes.get("/contributions", authManager, read);
+routes.get("/contributions/:username", auth, getContributionsOf);
+routes.post("/contributions", authManager, create);
+routes.get("/contribution-total", authManager, getContributionTotal)
 
-routes.post("/authenticate", AuthenticationController.authenticate);
+routes.post("/authenticate", authenticate);
 
-routes.get("/managers", authManager, ManagersController.read);
+routes.get("/managers", authManager, Managers_Read);
 
-routes.get("/reward-requests", authManager, RewardRequestsController.read);
-routes.post("/request-reward/:id", auth, RewardRequestsController.create);
+routes.get("/reward-requests", authManager, RewardRequests_Read);
+routes.post("/request-reward/:id", auth, RewardRequests_Create);
 
 routes.post("/request-password-recovery/:username",
-  PasswordsController.sendPasswordRecoveryForm
+  sendPasswordRecoveryForm
 );
 
-routes.post("/update-password", PasswordsController.update);
+routes.post("/update-password", _update);
 
-module.exports = routes;
+export default routes;

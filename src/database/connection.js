@@ -1,8 +1,8 @@
-const knex = require("knex");
-const environments = require("../../knexfile");
+import knex from "knex";
+import { production, development } from "../../knexfile.js";
 
 const dbConnect = process.env.DATABASE_URL
-  ? knex(environments.production)
-  : knex(environments.development);
+  ? knex(production)
+  : knex(development);
 
-module.exports = dbConnect;
+export default dbConnect

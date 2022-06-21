@@ -1,8 +1,6 @@
-const dbConnect = require("../connection");
+import dbConnect from "../connection.js";
 
-module.exports = {
-  async createRegister(table, data) {
-    const [register] = await dbConnect(table).insert(data).returning("*");
-    return register;
-  },
-};
+export async function createRegister(table, data) {
+  const [register] = await dbConnect(table).insert(data).returning("*");
+  return register;
+}

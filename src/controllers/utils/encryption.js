@@ -1,6 +1,6 @@
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 
-module.exports = {
+export const encryption = {
   generateSalt(numberOfCycles) {
     return bcrypt.genSalt(numberOfCycles).then((salt) => salt);
   },

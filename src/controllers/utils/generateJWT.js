@@ -1,8 +1,8 @@
-var jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
-const issuer = {"iss": "adretiro"}
+const issuer = {iss: "adretiro"}
 
-function generateJWT(payload, privateKey = process.env.JWT_PRIVATE_KEY, timeoutInHours = 3) {
+export function generateJWT(payload, privateKey = process.env.JWT_PRIVATE_KEY, timeoutInHours = 3) {
   return new Promise((resolve, reject) => {
     jwt.sign(
       {...payload, ...issuer},
@@ -16,4 +16,3 @@ function generateJWT(payload, privateKey = process.env.JWT_PRIVATE_KEY, timeoutI
   });
 }
 
-exports.generateJWT = generateJWT;

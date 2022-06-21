@@ -1,4 +1,4 @@
-exports.up = (knex) => {
+export function up(knex) {
   return knex.schema.createTable("stickers", (table) => {
     table.increments("id").primary();
     table.integer("fk_contributor");
@@ -13,8 +13,8 @@ exports.up = (knex) => {
     table.foreign("fk_jacobs_son").references("id").inTable("jacobs_sons");
     table.foreign("fk_sticker_status").references("id").inTable("stickers_status");
   });
-};
+}
 
-exports.down = (knex) => {
+export function down(knex) {
   return knex.schema.dropTable("stickers");
-};
+}
