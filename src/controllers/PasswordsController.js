@@ -39,7 +39,7 @@ export function validatePassword(password) {
     return { error: lackOfPassword };
   }
 
-  length = String(password).length;
+  const length = String(password).length;
   if (length < 8 || length > 25) {
     return { error: passwordSize };
   }
