@@ -54,7 +54,7 @@ This project is a NodeJS app with the API framework Express. So, to run locally,
 
 7. Enjoy
 
-### Reset the database
+### Reset local database
 
 1) Drop all tables 
 
@@ -64,7 +64,24 @@ yarn knex migrate:rollback
 
 2) Go to step 5 of section [Set up database](#database-setup)
 
-#### Database first setup report
+### Reset production database
+
+```sh
+heroku run knex migrate:status -a adretiro-dev-api
+heroku run knex migrate:rollback -a adretiro-dev-api
+heroku run knex migrate:latest -a adretiro-dev-api
+heroku run knex seed:run -a adretiro-dev-api
+heroku run yarn fill-table-stickers -a adretiro-dev-api
+# Now use the web app to register the admin user
+heroku pg:psql -a adretiro-dev-api
+```
+
+```sql
+INSERT INTO managers (id, fk_people, created_at, updated_at) VALUES (DEFAULT, @PEOPLE_ID, CLOCK_TIMESTAMP(), CLOCK_TIMESTAMP());
+```
+
+
+### Database first setup report
 
 This projetct used [Postgres](https://www.postgresql.org/) and [knex.js](https://knexjs.org/). The following describes how it was done the first time.
 
