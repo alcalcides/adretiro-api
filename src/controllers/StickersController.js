@@ -179,7 +179,7 @@ export async function getStickersAccount(req, res) {
   }
 }
 export async function getRank(req, res) {
-  const { rows, rowCount } = await knex.raw(`
+  const { rows, rowCount } = await dbConnect.raw(`
       select username, full_name, count(*) 
       from (select distinct fk_contributor, fk_jacobs_son, fk_sticker_status from stickers ) 
         as subset 
