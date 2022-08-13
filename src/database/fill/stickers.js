@@ -35,3 +35,4 @@ async function fillTableStickers() {
 }
 
 fillTableStickers();
+process.exit(0);
