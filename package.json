@@ -1,14 +1,19 @@
 {
   "type": "module",
   "name": "adretiro-api",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "This API RESTful is to server the app adretiro",
   "main": "index.js",
   "scripts": {
     "start": "node ./src/server.js",
     "dev": "nodemon ./src/server.js",
-    "upgrade-dependencies": " yarn yarn-upgrade-all",
-    "fill-table-stickers": "node ./src/database/fill/stickers.js"
+    "upgrade-dependencies": "yarn yarn-upgrade-all",
+    "fill-table-stickers": "node ./src/database/fill/stickers.js",
+    "db-migrate-status": "npx knex migrate:status",
+    "db-migrate-latest": "npx knex migrate:latest",
+    "db-seed-run": "npx knex seed:run",
+    "db-seed-part2": "yarn run fill-table-stickers",
+    "db-up": "yarn db-migrate-latest && yarn db-seed-run && yarn db-seed-part2"
   },
   "repository": {
     "type": "git",
@@ -28,13 +33,13 @@
     "express": "^4.18.1",
     "http-status-codes": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^2.1.0",
-    "nodemailer": "^6.7.5",
+    "knex": "^2.2.0",
+    "nodemailer": "^6.7.8",
     "pg": "^8.7.3",
     "random-number": "^0.0.9"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16",
+    "nodemon": "^2.0.19",
     "yarn-upgrade-all": "^0.7.1"
   }
 }

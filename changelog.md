@@ -6,6 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [1.0.9] - 2022-08-13
+### Added
+- Utility scripts in package-json
+
+### Fixed
+- Table stickers filling kill itself correctly at end
+
+### Removed
+- Docs about depracated email sending (gmail)
+
+### Changed
+- Heroku stack upgraded to 22
+
+### Deprecated
+- Email engine
+- Resource to tables created by seed: departments, stickers_status and jacobs_sons
+- Sticker table model. The relation with jacob suns should be done when user to click to reveal a sticker. Grant the normal distribution doesn't has a very little q.
+
+
 ## [1.0.8] - 2022-06-25
 ### Added
 - Documentation about produciont database restarting
