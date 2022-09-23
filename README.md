@@ -44,6 +44,19 @@ This project is a NodeJS app with the API framework Express. So, to run locally,
     yarn dev
     ```
 
+    or, with docker:
+
+    ```shell
+    docker build . -t adretiro-api-img
+    docker run --rm --name adretiro-api -p 3333:3333 adretiro-api-img
+    ```
+
+    to stop the container with docker, use
+    
+    ```shell
+    docker stop adretiro-api
+    ```
+
 5. Create a contributor admin using POST {{url}}/contributors. You can use the [front end](https://github.com/alcalcides/adretiro) application running locally or the app Postman. Be aware the people id created regard to the contributor. If you are correct in this tutorial, the id will be exactly 1.
 
 6. Insert the new contributor in the table 'managers' commanding 'INSERT' directly in SQL terminal. Keep in mind you need use the id of the table 'people', already fed when the contributor was created. If you are correct in this tutorial, the id will be exactly 1.
