@@ -48,7 +48,7 @@ This project is a NodeJS app with the API framework Express. So, to run locally,
 
     ```shell
     docker build . -t adretiro-api-img
-    docker run --rm --name adretiro-api -p 3333:3333 adretiro-api-img
+    docker run --rm --name adretiro-api -v $(pwd):/usr/src/app -p 3333:3333 adretiro-api-img
     ```
 
     to stop the container with docker, use
