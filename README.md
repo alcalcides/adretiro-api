@@ -38,24 +38,31 @@ This project is a NodeJS app with the API framework Express. So, to run locally,
         ```
 
 4. Run the application
+    - Directly on your operating system.
 
     ```shell
     yarn
     yarn dev
     ```
 
-    or, with docker:
+    - With a docker container:
 
     ```shell
     docker build . -t adretiro-api-img
     docker run --rm --name adretiro-api -v $(pwd):/usr/src/app -p 3333:3333 adretiro-api-img
     ```
 
-    to stop the container with docker, use
+    to stop the container with docker, use:
     
     ```shell
     docker stop adretiro-api
     ```
+    
+    - With docker compose:
+    ```shell
+    docker compose up
+    ```
+
 
 5. Create a contributor admin using POST {{url}}/contributors. You can use the [front end](https://github.com/alcalcides/adretiro) application running locally or the app Postman. Be aware the people id created regard to the contributor. If you are correct in this tutorial, the id will be exactly 1.
 
